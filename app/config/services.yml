@@ -1,0 +1,20 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/service_container.html
+parameters:
+  discord.prefix: "%env(BOT_PREFIX)%"
+  discord.token: "%env(DISCORD_TOKEN)%"
+
+services:
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+  discord.bot:
+    class: Bot\Bot
+    arguments:
+      -
+        token: "%discord.token%"
+        discordOptions:
+          logger: "@logger"
+        prefix: "%discord.prefix%"
+      -
+        "@service_container"
