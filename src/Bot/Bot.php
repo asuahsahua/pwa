@@ -64,13 +64,17 @@ class Bot implements ContainerAwareInterface
 
 		foreach ($commands as $commandClass) {
 			/** @var Command $command */
-			$command = new $commandClass($this->discord);
+			$command = new $commandClass($this->discord, $this->container);
 			$this->commands[$commandClass] = $command;
 
 			$this->discord->registerCommand(
 				$command->getCommand(),
 				function(Message $message, $args) use ($command) {
-					$command->reply($message, $args);
+					try {
+						$command->reply($message, $args);
+					} catch (\Exception $e) {
+						$this->error($e->getMessage());
+					}
 				},
 				$command->getOptions()
 			);
