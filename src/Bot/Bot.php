@@ -76,8 +76,9 @@ class Bot implements ContainerAwareInterface
 	public function dispatch(Command $command, Message $message, $args)
 	{
 		// check if database is connected
-		$conn = $this->container->get('doctrine.dbal.default_connection');
+		$conn = $this->container->get('doctrine.orm.default_entity_manager')->getConnection();
 		if ($conn->ping() === false) {
+			$this->info("Connection seems down, attempting to reconnect...");
 			$conn->close();
 			$conn->connect();
 		}
