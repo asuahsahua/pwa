@@ -77,10 +77,12 @@ class Bot implements ContainerAwareInterface
 	{
 		// check if database is connected
 		$conn = $this->container->get('doctrine.orm.default_entity_manager')->getConnection();
-		if ($conn->ping() === false) {
+		if (!$conn->ping()) {
 			$this->info("Connection seems down, attempting to reconnect...");
 			$conn->close();
 			$conn->connect();
+		} else {
+			$this->info("Connection seems to be up?");
 		}
 
 		try {
