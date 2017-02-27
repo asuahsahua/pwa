@@ -8,14 +8,12 @@ use Bot\Command;
 
 class AddQuote extends Command
 {
-	public function reply(Message $message, $args)
+	public function handle(Message $message, string $content)
 	{
-		if (!count($args)) {
+		if (empty($content)) {
 			$message->reply("you didn't give a quote.");
 			return;
 		}
-
-		$content = implode(' ', $args);
 
 		$quote = new Quote();
 		$quote->setContent($content);

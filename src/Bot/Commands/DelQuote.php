@@ -7,11 +7,9 @@ use Bot\Command;
 
 class DelQuote extends Command
 {
-	public function reply(Message $message, $args)
+	public function handle(Message $message, string $content)
 	{
 		$repo = $this->getRepository('AppBundle:Quote');
-
-		$content = implode(' ', $args);
 
 		/** @var \AppBundle\Entity\Quote $result */
 		$result = $repo->createQueryBuilder('q')

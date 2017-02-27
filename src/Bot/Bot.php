@@ -29,9 +29,8 @@ class Bot implements ContainerAwareInterface
 
 		$options['defaultHelpCommand'] = false;
 
-		$this->discord = new Client($options);
+		$this->discord = new Client($options, $container);
 
-		$this->registerHandlers();
 		$this->registerCommands();
 	}
 
@@ -39,17 +38,6 @@ class Bot implements ContainerAwareInterface
 	{
 		$this->info("Running...");
 		$this->discord->run();
-	}
-
-	protected function registerHandlers()
-	{
-		$this->discord->on('ready', function (Discord $discord) {
-			$this->info("Bot ready!");
-
-			$discord->on('message', function (Message $message, Discord $discord) {
-				$this->info("{$message->author->username}: {$message->content}");
-			});
-		});
 	}
 
 	protected function registerCommands()
@@ -67,15 +55,9 @@ class Bot implements ContainerAwareInterface
 			$command = new $commandClass($this->discord, $this->container);
 			$this->commands[$commandClass] = $command;
 
-			$this->discord->registerCommand(
-				$command->getCommand(),
-				function(Message $message, $args) use ($command) {
-					$this->dispatch($command, $message, $args);
-				},
-				$command->getOptions()
-			);
+			$this->discord->registerCommand($command);
 
-			$this->debug("Registered {$command->getCommand()}");
+			$this->debug("Registered {$commandClass} ({$this->discord->getPrefix()}{$command->getCommand()})");
 		}
 	}
 
@@ -101,7 +83,7 @@ class Bot implements ContainerAwareInterface
 		}
 
 		try {
-			$command->reply($message, $args);
+			$command->handle($message, $args);
 		} catch (\Exception $e) {
 			$this->error($e->getMessage());
 			$message->channel->sendMessage("Something went wrong - check logs :crying_cat_face:");

@@ -7,7 +7,7 @@ use Bot\Command;
 
 class Berate extends Command
 {
-	public function reply(Message $message, $args)
+	public function handle(Message $message, string $content)
 	{
 		$berates = [
 			"Fuck your mechanics",

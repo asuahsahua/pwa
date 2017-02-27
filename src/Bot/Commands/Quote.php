@@ -7,7 +7,7 @@ use Bot\Command;
 
 class Quote extends Command
 {
-	public function reply(Message $message, $args)
+	public function handle(Message $message, string $content)
 	{
 		$repo = $this->getRepository('AppBundle:Quote');
 
@@ -16,10 +16,10 @@ class Quote extends Command
 			->addOrderBy('rand')
 			->setMaxResults(1);
 
-		if (count($args)) {
+		if (!empty($content)) {
 			$query
 				->where('q.content LIKE :search')
-				->setParameter('search', '%' . implode(' ', $args) . '%');
+				->setParameter('search', "%$content%");
 		}
 
 		/** @var \AppBundle\Entity\Quote $result */

@@ -7,20 +7,19 @@ use Bot\Command;
 
 class Help extends Command
 {
-	public function reply(Message $message, $args)
+	public function handle(Message $message, string $content)
 	{
-		if (count($args) > 0) {
-			$this->sendCommandHelp($message, $args);
+		if (!empty($content)) {
+			$this->sendCommandHelp($message, $content);
 		} else {
-			$this->sendAllCommandsHelp($message, $args);
+			$this->sendAllCommandsHelp($message);
 		}
 	}
 
-	protected function sendCommandHelp(Message $message, $args)
+	protected function sendCommandHelp(Message $message, $commandString)
 	{
 		$prefix = $this->client->getPrefix();
 
-		$commandString = implode(' ', $args);
 		$command = $this->client->getCommand($commandString);
 
 		if (is_null($command)) {
@@ -49,7 +48,7 @@ class Help extends Command
 		$message->channel->sendMessage($response);
 	}
 
-	private function sendAllCommandsHelp($message, $args)
+	private function sendAllCommandsHelp($message)
 	{
 		$prefix = $this->client->getPrefix();
 
