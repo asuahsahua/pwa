@@ -10,12 +10,13 @@ imports:
 monolog:
     handlers:
         main:
-            type:         fingers_crossed
-            action_level: debug
-            handler:      nested
+            type: stream
+            path:  "php://stderr"
+            level: debug
         nested:
             type:  stream
             path:  "%kernel.logs_dir%/%kernel.environment%.log"
             level: debug
         console:
             type:  console
+            level: debug
