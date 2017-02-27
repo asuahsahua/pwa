@@ -94,7 +94,7 @@ class Bot implements ContainerAwareInterface
 	public function dispatch(Command $command, Message $message, $args)
 	{
 		// check if database is connected
-		$conn = $this->container->get('doctrine.dbal.connection');
+		$conn = $this->container->get('doctrine.dbal.default_connection');
 		if ($conn->ping() === false) {
 			$conn->close();
 			$conn->connect();
@@ -104,6 +104,7 @@ class Bot implements ContainerAwareInterface
 			$command->reply($message, $args);
 		} catch (\Exception $e) {
 			$this->error($e->getMessage());
+			$message->channel->sendMessage("Something went wrong - check logs :crying_cat_face:");
 		}
 	}
 }
