@@ -70,11 +70,7 @@ class Bot implements ContainerAwareInterface
 			$this->discord->registerCommand(
 				$command->getCommand(),
 				function(Message $message, $args) use ($command) {
-					try {
-						$command->reply($message, $args);
-					} catch (\Exception $e) {
-						$this->error($e->getMessage());
-					}
+					$this->dispatch($command, $message, $args);
 				},
 				$command->getOptions()
 			);
@@ -86,5 +82,28 @@ class Bot implements ContainerAwareInterface
 	public function log($level, $message, array $context = array())
 	{
 		$this->container->get('logger')->log($level, $message, $context);
+	}
+
+	/**
+	 * Dispatch a message to the command
+	 *
+	 * @param Command $command
+	 * @param Message $message
+	 * @param         $args
+	 */
+	public function dispatch(Command $command, Message $message, $args)
+	{
+		// check if database is connected
+		$conn = $this->container->get('doctrine.dbal.connection');
+		if ($conn->ping() === false) {
+			$conn->close();
+			$conn->connect();
+		}
+
+		try {
+			$command->reply($message, $args);
+		} catch (\Exception $e) {
+			$this->error($e->getMessage());
+		}
 	}
 }
