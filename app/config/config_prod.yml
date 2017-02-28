@@ -9,14 +9,7 @@ imports:
 
 monolog:
     handlers:
-        main:
-            type: stream
-            path:  "php://stderr"
-            level: debug
         nested:
             type:  stream
-            path:  "%kernel.logs_dir%/%kernel.environment%.log"
-            level: debug
-        console:
-            type:  console
+            path:  "php://stderr"
             level: debug

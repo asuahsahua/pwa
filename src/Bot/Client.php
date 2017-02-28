@@ -2,12 +2,11 @@
 
 namespace Bot;
 
+use AppBundle\Container\ContainerAwareTrait;
 use Discord\Discord;
 use Discord\Parts\Channel\Message;
-use Psr\Log\LoggerTrait;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -16,7 +15,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class Client extends Discord implements ContainerAwareInterface
 {
 	use ContainerAwareTrait;
-	use LoggerTrait;
 
 	/**
 	 * An array of options passed to the client.
@@ -264,11 +262,24 @@ class Client extends Discord implements ContainerAwareInterface
 				return;
 			}
 
+			// command is registered and we're good to go. do a pre-command check and dispatch it!
+			$this->preReceiveCheck();
 			$result = $command->receive($message, count($parts) > 1 ? $parts[1] : "");
 
 			if (is_string($result)) {
 				$message->reply($result);
 			}
+		}
+	}
+
+	protected function preReceiveCheck()
+	{
+		// Check the connection is up
+		$conn = $this->container->get('doctrine.orm.default_entity_manager')->getConnection();
+		if (!$conn->ping()) {
+			$this->info("Connection seems down, attempting to reconnect...");
+			$conn->close();
+			$conn->connect();
 		}
 	}
 }

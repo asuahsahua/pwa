@@ -2,11 +2,11 @@
 
 namespace Bot;
 
+use AppBundle\Container\ContainerAwareTrait;
 use Discord\Parts\Channel\Message;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 abstract class Command implements ContainerAwareInterface
 {
