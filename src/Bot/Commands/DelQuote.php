@@ -9,6 +9,9 @@ class DelQuote extends Command
 {
 	public function handle(Message $message, string $content)
 	{
+		$message->reply("nah, not deleting it!");
+		return;
+
 		$repo = $this->getRepository('AppBundle:Quote');
 
 		/** @var \AppBundle\Entity\Quote $result */
