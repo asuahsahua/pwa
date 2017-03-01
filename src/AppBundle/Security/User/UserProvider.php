@@ -4,6 +4,7 @@ namespace AppBundle\Security\User;
 
 use AppBundle\Container\ContainerAwareTrait;
 use AppBundle\Entity\User;
+use HWI\Bundle\OAuthBundle\OAuth\Response\PathUserResponse;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthAwareUserProviderInterface;
 use Symfony\Component\DependencyInjection\Container;
@@ -94,7 +95,27 @@ class UserProvider implements UserProviderInterface, ContainerAwareInterface, OA
      */
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
-        // TODO: Load some of the data from the response?
-        return $this->loadUserByUsername($response->getUsername());
+        assert($response instanceof PathUserResponse);
+        /** @var PathUserResponse $response */
+
+        try {
+            $user = $this->loadUserByUsername($response->getUsername());
+        } catch (UsernameNotFoundException $ex) {
+            $user = new User();
+            $user->setUsername($response->getUsername());
+            $user->setPassword($response->getUsername());
+            $user->setSalt($response->getUsername());
+        }
+
+        $user->setDiscordUsername($response->getNickname());
+        $responseValues = $response->getResponse();
+        $user->setDiscriminator($responseValues['discriminator']);
+        $user->setAvatarId($response->getProfilePicture());
+
+        $em = $this->container->get('doctrine.orm.default_entity_manager');
+        $em->persist($user);
+        $em->flush();
+
+        return $user;
     }
 }

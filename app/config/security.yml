@@ -6,6 +6,9 @@ security:
     providers:
         in_memory:
             memory: ~
+        database_oauth:
+            id: user.provider
+
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -13,15 +16,11 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-#        login:
-#            pattern: ^/login
-#            security: false
-
         secured_area:
             anonymous: ~
             oauth:
               resource_owners:
-                  discord: "/login/check-custom"
+                  discord: "/login/check-discord"
               login_path: /login
               use_forward: true
               failure_path: /login
@@ -30,4 +29,4 @@ security:
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/login/check-custom, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login/check-discord, roles: IS_AUTHENTICATED_ANONYMOUSLY }

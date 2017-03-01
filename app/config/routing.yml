@@ -14,5 +14,5 @@ hwi_oauth_login:
     resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
     prefix:   /login
 
-custom_login:
-    path: /login/check-custom
+discord_login_check:
+    path: /login/check-discord
