@@ -1,0 +1,22 @@
+{
+  "name": "pwa",
+  "homepage": "https://github.com/asuahsahua/pwa",
+  "authors": [
+    "Natalie Marion <nmarion@salesforce.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "web/assets/vendor/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.1"
+  }
+}
