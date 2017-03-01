@@ -98,8 +98,8 @@ hwi_oauth:
     resource_owners:
         discord:
             type:                oauth2
-            client_id:           "%discord_client_id%"
-            client_secret:       "%discord_client_secret%"
+            client_id:           "%env(DISCORD_CLIENT_ID)%"
+            client_secret:       "%env(DISCORD_CLIENT_SECRET)%"
             access_token_url:    https://discordapp.com/api/oauth2/token
             authorization_url:   https://discordapp.com/api/oauth2/authorize
             infos_url:           https://discordapp.com/api/users/@me
