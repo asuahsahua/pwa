@@ -65,6 +65,14 @@ class User implements UserInterface
     protected $avatar_id;
 
     /**
+     * @var WowCharacter[]
+     *
+     * @ORM\OneToMany(targetEntity="WowCharacter", mappedBy="characters")
+     * @ORM\JoinColumn(name="id", referencedColumnName="user_id")
+     */
+    private $characters;
+
+    /**
      * Get id
      *
      * @return int
@@ -180,6 +188,14 @@ class User implements UserInterface
     }
 
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->characters = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Set discordId
      *
      * @param integer $discordId
@@ -273,5 +289,39 @@ class User implements UserInterface
     public function getAvatarId()
     {
         return $this->avatar_id;
+    }
+
+    /**
+     * Add character
+     *
+     * @param \AppBundle\Entity\WowCharacter $character
+     *
+     * @return User
+     */
+    public function addCharacter(\AppBundle\Entity\WowCharacter $character)
+    {
+        $this->characters[] = $character;
+
+        return $this;
+    }
+
+    /**
+     * Remove character
+     *
+     * @param \AppBundle\Entity\WowCharacter $character
+     */
+    public function removeCharacter(\AppBundle\Entity\WowCharacter $character)
+    {
+        $this->characters->removeElement($character);
+    }
+
+    /**
+     * Get characters
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCharacters()
+    {
+        return $this->characters;
     }
 }
