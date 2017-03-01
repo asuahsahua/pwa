@@ -8,38 +8,38 @@ use Bot\Command;
 
 class AddQuote extends Command
 {
-	public function handle(Message $message, string $content)
-	{
-		if (empty($content)) {
-			$message->reply("you didn't give a quote.");
-			return;
-		}
+    public function handle(Message $message, string $content)
+    {
+        if (empty($content)) {
+            $message->reply("you didn't give a quote.");
+            return;
+        }
 
-		$quote = new Quote();
-		$quote->setContent($content);
-		$quote->setUser($message->author->username);
-		$quote->setCreatedAt(new \DateTime());
+        $quote = new Quote();
+        $quote->setContent($content);
+        $quote->setUser($message->author->username);
+        $quote->setCreatedAt(new \DateTime());
 
-		$em = $this->getEntityManager();
-		$em->persist($quote);
-		$em->flush();
+        $em = $this->getEntityManager();
+        $em->persist($quote);
+        $em->flush();
 
-		$message->reply("added!");
-	}
+        $message->reply("added!");
+    }
 
-	public function getCommand() : string
-	{
-		return 'addquote';
-	}
+    public function getCommand() : string
+    {
+        return 'addquote';
+    }
 
-	public function getDescription()
-	{
-		return "Adds a quote";
-	}
+    public function getDescription()
+    {
+        return "Adds a quote";
+    }
 
-	public function getUsage()
-	{
-		return "[quote]";
-	}
+    public function getUsage()
+    {
+        return "[quote]";
+    }
 }
 
