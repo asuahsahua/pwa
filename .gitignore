@@ -16,5 +16,6 @@
 /web/bundles/
 /.idea/
 /.env
+/prod.env
 *.php~
 .DS_Store
