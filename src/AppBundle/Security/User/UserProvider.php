@@ -94,7 +94,15 @@ class UserProvider implements UserProviderInterface, ContainerAwareInterface, OA
      */
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
-        // TODO: Load some of the data from the response?
-        return $this->loadUserByUsername($response->getUsername());
+        $user = null;
+        try {
+            $user = $this->loadUserByUsername($response->getUsername());
+        } catch (UsernameNotFoundException $ex) {
+            $user = new User();
+            $user->setUsername($response->getUsername());
+        }
+
+        // todo: load data into the user
+        return $user;
     }
 }
