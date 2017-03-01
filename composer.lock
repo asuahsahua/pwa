@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0d1235c27a063d899e0c9200b6cdf948",
-    "content-hash": "163af4fcf0b180ef4bcb7ef06f1e5317",
+    "hash": "8f6577683d2db1b2c8c0c9a6ffad8811",
+    "content-hash": "6b47c7261fe9de5106072357bea5594a",
     "packages": [
         {
             "name": "TrafficCophp/ByteBuffer",
@@ -1100,148 +1100,22 @@
             "time": "2012-11-02 14:49:47"
         },
         {
-            "name": "friendsofsymfony/oauth-server-bundle",
-            "version": "1.5.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/FriendsOfSymfony/FOSOAuthServerBundle.git",
-                "reference": "0b25cdaae8983c630bb62d14b6993219b1dadb8d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSOAuthServerBundle/zipball/0b25cdaae8983c630bb62d14b6993219b1dadb8d",
-                "reference": "0b25cdaae8983c630bb62d14b6993219b1dadb8d",
-                "shasum": ""
-            },
-            "require": {
-                "friendsofsymfony/oauth2-php": "~1.1",
-                "php": "^5.3.3|^7.0",
-                "symfony/framework-bundle": "~2.2|~3.0",
-                "symfony/security-bundle": "~2.1|~3.0"
-            },
-            "require-dev": {
-                "doctrine/doctrine-bundle": "~1.0",
-                "doctrine/mongodb-odm": "~1.0",
-                "doctrine/orm": "~2.2",
-                "phing/phing": "~2.4",
-                "propel/propel1": "^1.6.5",
-                "symfony/class-loader": "~2.1|~3.0",
-                "symfony/form": "~2.3|~3.0",
-                "symfony/yaml": "~2.1|~3.0",
-                "willdurand/propel-typehintable-behavior": "^1.0.4"
-            },
-            "suggest": {
-                "doctrine/doctrine-bundle": "*",
-                "doctrine/mongodb-odm-bundle": "*",
-                "propel/propel-bundle": "If you want to use Propel with Symfony2, then you will have to install the PropelBundle",
-                "symfony/form": "Needed to be able to use the AuthorizeFormType",
-                "willdurand/propel-typehintable-behavior": "The Typehintable behavior is useful to add type hints on generated methods, to be compliant with interfaces"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.5-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "FOS\\OAuthServerBundle\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Arnaud Le Blanc",
-                    "email": "arnaud.lb@gmail.com"
-                },
-                {
-                    "name": "FriendsOfSymfony Community",
-                    "homepage": "https://github.com/FriendsOfSymfony/FOSOAuthServerBundle/contributors"
-                }
-            ],
-            "description": "Symfony2 OAuth Server Bundle",
-            "homepage": "http://friendsofsymfony.github.com",
-            "keywords": [
-                "oauth",
-                "oauth2",
-                "server"
-            ],
-            "time": "2016-02-22 13:57:55"
-        },
-        {
-            "name": "friendsofsymfony/oauth2-php",
-            "version": "1.2.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/FriendsOfSymfony/oauth2-php.git",
-                "reference": "fa2aecb1fca2a03fd5f9aca19fe9adb9dfff928c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/oauth2-php/zipball/fa2aecb1fca2a03fd5f9aca19fe9adb9dfff928c",
-                "reference": "fa2aecb1fca2a03fd5f9aca19fe9adb9dfff928c",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.2",
-                "symfony/http-foundation": "~2.0|~3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.2.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "OAuth2\\": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Arnaud Le Blanc",
-                    "email": "arnaud.lb@gmail.com"
-                },
-                {
-                    "name": "FriendsOfSymfony Community",
-                    "homepage": "https://github.com/FriendsOfSymfony/oauth2-php/contributors"
-                }
-            ],
-            "description": "OAuth2 library",
-            "homepage": "https://github.com/FriendsOfSymfony/oauth2-php",
-            "keywords": [
-                "oauth",
-                "oauth2"
-            ],
-            "time": "2016-03-31 14:24:17"
-        },
-        {
             "name": "guzzlehttp/guzzle",
-            "version": "6.2.2",
+            "version": "6.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "ebf29dee597f02f09f4d5bbecc68230ea9b08f60"
+                "reference": "8d6c6cc55186db87b7dc5009827429ba4e9dc006"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/ebf29dee597f02f09f4d5bbecc68230ea9b08f60",
-                "reference": "ebf29dee597f02f09f4d5bbecc68230ea9b08f60",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/8d6c6cc55186db87b7dc5009827429ba4e9dc006",
+                "reference": "8d6c6cc55186db87b7dc5009827429ba4e9dc006",
                 "shasum": ""
             },
             "require": {
                 "guzzlehttp/promises": "^1.0",
-                "guzzlehttp/psr7": "^1.3.1",
+                "guzzlehttp/psr7": "^1.4",
                 "php": ">=5.5"
             },
             "require-dev": {
@@ -1285,7 +1159,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2016-10-08 15:01:37"
+            "time": "2017-02-28 22:50:30"
         },
         {
             "name": "guzzlehttp/promises",
@@ -1402,50 +1276,6 @@
                 "url"
             ],
             "time": "2017-02-27 10:51:17"
-        },
-        {
-            "name": "heroku/heroku-buildpack-php",
-            "version": "v120",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/heroku/heroku-buildpack-php.git",
-                "reference": "e0499a7fdffd56f46534a037a6c48d65cef4e645"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/heroku/heroku-buildpack-php/zipball/e0499a7fdffd56f46534a037a6c48d65cef4e645",
-                "reference": "e0499a7fdffd56f46534a037a6c48d65cef4e645",
-                "shasum": ""
-            },
-            "bin": [
-                "bin/heroku-hhvm-apache2",
-                "bin/heroku-hhvm-nginx",
-                "bin/heroku-php-apache2",
-                "bin/heroku-php-nginx"
-            ],
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "David Zuelke",
-                    "email": "dz@heroku.com"
-                }
-            ],
-            "description": "Toolkit for starting a PHP application locally, with or without foreman, using the same config for PHP/HHVM and Apache2/Nginx as on Heroku",
-            "homepage": "https://github.com/heroku/heroku-buildpack-php",
-            "keywords": [
-                "apache",
-                "apache2",
-                "foreman",
-                "heroku",
-                "hhvm",
-                "nginx",
-                "php"
-            ],
-            "time": "2017-02-20 15:05:49"
         },
         {
             "name": "hwi/oauth-bundle",
@@ -2431,16 +2261,16 @@
         },
         {
             "name": "react/http-client",
-            "version": "v0.4.15",
+            "version": "v0.4.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/http-client.git",
-                "reference": "01e919008363622334f91419a9908b3a51754ccd"
+                "reference": "307d8f9c9062c9f2fb21cde6ad13afee040cce15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/http-client/zipball/01e919008363622334f91419a9908b3a51754ccd",
-                "reference": "01e919008363622334f91419a9908b3a51754ccd",
+                "url": "https://api.github.com/repos/reactphp/http-client/zipball/307d8f9c9062c9f2fb21cde6ad13afee040cce15",
+                "reference": "307d8f9c9062c9f2fb21cde6ad13afee040cce15",
                 "shasum": ""
             },
             "require": {
@@ -2467,7 +2297,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2016-12-02 10:17:42"
+            "time": "2017-03-01 11:07:56"
         },
         {
             "name": "react/partial",
@@ -3301,16 +3131,16 @@
         },
         {
             "name": "symfony/swiftmailer-bundle",
-            "version": "v2.4.2",
+            "version": "v2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/swiftmailer-bundle.git",
-                "reference": "ad751095576ce0c12a284e30e3fff80c91f27225"
+                "reference": "2027daef663f8d50c4dda967633f2e31f894b53c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/swiftmailer-bundle/zipball/ad751095576ce0c12a284e30e3fff80c91f27225",
-                "reference": "ad751095576ce0c12a284e30e3fff80c91f27225",
+                "url": "https://api.github.com/repos/symfony/swiftmailer-bundle/zipball/2027daef663f8d50c4dda967633f2e31f894b53c",
+                "reference": "2027daef663f8d50c4dda967633f2e31f894b53c",
                 "shasum": ""
             },
             "require": {
@@ -3332,7 +3162,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4-dev"
+                    "dev-master": "2.5-dev"
                 }
             },
             "autoload": {
@@ -3356,7 +3186,7 @@
             ],
             "description": "Symfony SwiftmailerBundle",
             "homepage": "http://symfony.com",
-            "time": "2016-12-20 04:44:33"
+            "time": "2017-02-23 15:49:01"
         },
         {
             "name": "symfony/symfony",
@@ -3726,6 +3556,50 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "heroku/heroku-buildpack-php",
+            "version": "v120",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/heroku/heroku-buildpack-php.git",
+                "reference": "e0499a7fdffd56f46534a037a6c48d65cef4e645"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/heroku/heroku-buildpack-php/zipball/e0499a7fdffd56f46534a037a6c48d65cef4e645",
+                "reference": "e0499a7fdffd56f46534a037a6c48d65cef4e645",
+                "shasum": ""
+            },
+            "bin": [
+                "bin/heroku-hhvm-apache2",
+                "bin/heroku-hhvm-nginx",
+                "bin/heroku-php-apache2",
+                "bin/heroku-php-nginx"
+            ],
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Zuelke",
+                    "email": "dz@heroku.com"
+                }
+            ],
+            "description": "Toolkit for starting a PHP application locally, with or without foreman, using the same config for PHP/HHVM and Apache2/Nginx as on Heroku",
+            "homepage": "https://github.com/heroku/heroku-buildpack-php",
+            "keywords": [
+                "apache",
+                "apache2",
+                "foreman",
+                "heroku",
+                "hhvm",
+                "nginx",
+                "php"
+            ],
+            "time": "2017-02-20 15:05:49"
+        },
         {
             "name": "sensio/generator-bundle",
             "version": "v3.1.2",
