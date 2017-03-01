@@ -30,7 +30,8 @@
         "incenteev/composer-parameter-handler": "^2.0",
         "twig/twig": "^1.0||^2.0",
         "team-reflex/discord-php": "^4.0",
-        "heroku/heroku-buildpack-php": "^120.0"
+        "heroku/heroku-buildpack-php": "^120.0",
+        "friendsofsymfony/oauth-server-bundle": "^1.5"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

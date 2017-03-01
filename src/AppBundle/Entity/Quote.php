@@ -2,30 +2,45 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Quote
+ *
+ * @ORM\Table(name="quote")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\QuoteRepository")
  */
 class Quote
 {
     /**
      * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="content", type="string", length=255)
      */
-    private $content;
+    protected $content;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="username", type="string", length=255)
      */
-    private $user;
+    protected $username;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime")
      */
-    private $createdAt;
+    protected $createdAt;
 
 
     /**
@@ -63,27 +78,27 @@ class Quote
     }
 
     /**
-     * Set user
+     * Set username
      *
-     * @param string $user
+     * @param string $username
      *
      * @return Quote
      */
-    public function setUser($user)
+    public function setUsername($username)
     {
-        $this->user = $user;
+        $this->username = $username;
 
         return $this;
     }
 
     /**
-     * Get user
+     * Get username
      *
      * @return string
      */
-    public function getUser()
+    public function getUsername()
     {
-        return $this->user;
+        return $this->username;
     }
 
     /**
@@ -110,4 +125,3 @@ class Quote
         return $this->createdAt;
     }
 }
-

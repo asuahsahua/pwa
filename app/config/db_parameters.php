@@ -9,3 +9,5 @@ $container->setParameter('database_name', trim($db['path'], '/'));
 $container->setParameter('database_user', $db['user']);
 $container->setParameter('database_password', $db['pass']);
 
+$container->setParameter('discord_client_id', getenv('DISCORD_CLIENT_ID'));
+$container->setParameter('discord_client_secret', getenv('DISCORD_CLIENT_SECRET'));

@@ -13,12 +13,21 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        main:
+#        login:
+#            pattern: ^/login
+#            security: false
+
+        secured_area:
             anonymous: ~
-            # activate different ways to authenticate
+            oauth:
+              resource_owners:
+                  discord: "/login/check-custom"
+              login_path: /login
+              use_forward: true
+              failure_path: /login
+              oauth_user_provider:
+                  service: user.provider
 
-            # http_basic: ~
-            # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login/check-custom, roles: IS_AUTHENTICATED_ANONYMOUSLY }

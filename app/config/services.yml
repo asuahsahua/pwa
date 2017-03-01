@@ -18,3 +18,9 @@ services:
         prefix: "%discord.prefix%"
       -
         "@service_container"
+
+  user.provider:
+    class: AppBundle\Security\User\UserProvider
+    arguments:
+      -
+        "@service_container"
