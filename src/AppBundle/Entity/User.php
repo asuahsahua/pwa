@@ -25,6 +25,20 @@ class User implements UserInterface
     /**
      * @var string
      *
+     * @ORM\Column(name="discord_username", type="string")
+     */
+    protected $discordUsername;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="discriminator", type="integer")
+     */
+    protected $discriminator;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="username", type="string", length=255)
      */
     protected $username;
@@ -43,6 +57,12 @@ class User implements UserInterface
      */
     protected $salt;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="avatar_id", type="string", length=255)
+     */
+    protected $avatar_id;
 
     /**
      * Get id
@@ -157,5 +177,101 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         // TODO: Implement eraseCredentials() method.
+    }
+
+    /**
+     * Set discordId
+     *
+     * @param integer $discordId
+     *
+     * @return User
+     */
+    public function setDiscordId($discordId)
+    {
+        $this->discordId = $discordId;
+
+        return $this;
+    }
+
+    /**
+     * Get discordId
+     *
+     * @return integer
+     */
+    public function getDiscordId()
+    {
+        return $this->discordId;
+    }
+
+    /**
+     * Set discordUsername
+     *
+     * @param string $discordUsername
+     *
+     * @return User
+     */
+    public function setDiscordUsername($discordUsername)
+    {
+        $this->discordUsername = $discordUsername;
+
+        return $this;
+    }
+
+    /**
+     * Get discordUsername
+     *
+     * @return string
+     */
+    public function getDiscordUsername()
+    {
+        return $this->discordUsername;
+    }
+
+    /**
+     * Set discriminator
+     *
+     * @param integer $discriminator
+     *
+     * @return User
+     */
+    public function setDiscriminator($discriminator)
+    {
+        $this->discriminator = $discriminator;
+
+        return $this;
+    }
+
+    /**
+     * Get discriminator
+     *
+     * @return integer
+     */
+    public function getDiscriminator()
+    {
+        return $this->discriminator;
+    }
+
+    /**
+     * Set avatarId
+     *
+     * @param integer $avatarId
+     *
+     * @return User
+     */
+    public function setAvatarId($avatarId)
+    {
+        $this->avatar_id = $avatarId;
+
+        return $this;
+    }
+
+    /**
+     * Get avatarId
+     *
+     * @return integer
+     */
+    public function getAvatarId()
+    {
+        return $this->avatar_id;
     }
 }
