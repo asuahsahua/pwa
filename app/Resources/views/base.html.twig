@@ -28,21 +28,25 @@
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Work</a></li>
-                        <li><a href="#about">In</a></li>
-                        <li><a href="#contact">Progress</a></li>
+                        <li class="active"><a href="#">Schedule</a></li>
+                        <li><a href="#about">Characters</a></li>
                     </ul>
 
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav navbar-right navbar-username">
                     {% if app.user and app.user.username %}
-                        <li>
-                            <a>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle profile-image" data-toggle="dropdown">
+                                <img src="https://cdn.discordapp.com/avatars/{{ app.user.username }}/{{ app.user.avatarId }}.png?size=256" class="img-circle discord-avatar">
                                 {{ app.user.discordUsername }}#{{ app.user.discriminator }}
+                                 <b class="caret"></b>
                             </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Sign out</a></li>
+                            </ul>
                         </li>
                     {% else %}
                         <li>
-                            <a href="/connect/discord">
+                            <a href="{{ hwi_oauth_login_url('discord') }}">
                                 Login with <img class="discord-login-icon" title="Discord" src="{{ asset('images/discord-logo-white.png') }}"/>
                             </a>
                         </li>
