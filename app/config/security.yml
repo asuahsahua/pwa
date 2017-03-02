@@ -19,13 +19,16 @@ security:
         secured_area:
             anonymous: ~
             oauth:
-              resource_owners:
-                  discord: "/login/check-discord"
-              login_path: /login
-              use_forward: true
-              failure_path: /login
-              oauth_user_provider:
-                  service: user.provider
+                resource_owners:
+                    discord: "/login/check-discord"
+                login_path: /login
+                use_forward: true
+                failure_path: /login
+                oauth_user_provider:
+                    service: user.provider
+            logout:
+                path:   /logout
+                target: /
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

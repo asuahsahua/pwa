@@ -16,3 +16,6 @@ hwi_oauth_login:
 
 discord_login_check:
     path: /login/check-discord
+
+logout:
+    path: /logout
