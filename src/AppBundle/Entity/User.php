@@ -67,7 +67,7 @@ class User implements UserInterface
     /**
      * @var WowCharacter[]
      *
-     * @ORM\OneToMany(targetEntity="WowCharacter", mappedBy="characters")
+     * @ORM\OneToMany(targetEntity="WowCharacter", mappedBy="user")
      * @ORM\JoinColumn(name="id", referencedColumnName="user_id")
      */
     private $characters;
