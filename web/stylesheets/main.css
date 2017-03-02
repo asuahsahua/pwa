@@ -24,5 +24,10 @@ a.profile-image {
     line-height:40px;
 }
 
-.navbar {min-height:50px !important;}
+.navbar {
+    min-height:50px !important;
+}
 
+.container .content {
+    padding-top: 15px;
+}

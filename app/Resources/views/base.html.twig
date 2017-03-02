@@ -69,7 +69,9 @@
         </nav>
 
         <div class="container">
-            {% block body %}{% endblock %}
+            <div class="content">
+                {% block body %}{% endblock %}
+            </div>
             {% block javascripts %}{% endblock %}
         </div>
     </body>
