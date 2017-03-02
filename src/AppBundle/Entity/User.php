@@ -196,30 +196,6 @@ class User implements UserInterface
     }
 
     /**
-     * Set discordId
-     *
-     * @param integer $discordId
-     *
-     * @return User
-     */
-    public function setDiscordId($discordId)
-    {
-        $this->discordId = $discordId;
-
-        return $this;
-    }
-
-    /**
-     * Get discordId
-     *
-     * @return integer
-     */
-    public function getDiscordId()
-    {
-        return $this->discordId;
-    }
-
-    /**
      * Set discordUsername
      *
      * @param string $discordUsername
@@ -323,5 +299,18 @@ class User implements UserInterface
     public function getCharacters()
     {
         return $this->characters;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullDiscordUsername()
+    {
+        return $this->discordUsername . "#" . $this->discriminator;
+    }
+
+    public function getAvatarUrl()
+    {
+        return "https://cdn.discordapp.com/avatars/{$this->getUsername()}/{$this->getAvatarId()}.png?size=256";
     }
 }

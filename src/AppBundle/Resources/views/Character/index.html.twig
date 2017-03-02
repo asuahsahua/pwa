@@ -1,0 +1,48 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}AppBundle:Character:index{% endblock %}
+
+{% block body %}
+
+    {% if app.user %}
+    <h3>My Characters</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Server</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for character in mine %}
+            <tr>
+                <td>{{ character.characterName }}</td>
+                <td>{{ character.server }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+
+    <h3>All Characters</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Server</th>
+            <th>Discord User</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for character in others %}
+            <tr>
+                <td>{{ character.characterName }}</td>
+                <td>{{ character.server }}</td>
+                <td>{{ character.user.fullDiscordUsername }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
