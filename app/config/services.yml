@@ -1,26 +1,30 @@
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/service_container.html
 parameters:
-  discord.prefix: "%env(BOT_PREFIX)%"
-  discord.token: "%env(DISCORD_TOKEN)%"
+    discord.prefix: "%env(BOT_PREFIX)%"
+    discord.token: "%env(DISCORD_TOKEN)%"
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
-  discord.bot:
-    class: Bot\Bot
-    arguments:
-      -
-        token: "%discord.token%"
-        discordOptions:
-          logger: "@logger"
-        prefix: "%discord.prefix%"
-      -
-        "@service_container"
+    discord.bot:
+        class: Bot\Bot
+        arguments:
+            -
+                token: "%discord.token%"
+                discordOptions:
+                    logger: "@logger"
+                prefix: "%discord.prefix%"
+            -
+                "@service_container"
 
-  user.provider:
-    class: AppBundle\Security\User\UserProvider
-    arguments:
-      -
-        "@service_container"
+    user.provider:
+        class: AppBundle\Security\User\UserProvider
+        arguments:
+            -
+                "@service_container"
+
+    session.handler.pdo:
+        class:     Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler
+        public:    false
+        arguments:
+            - 'mysql:host=%database_host%;port=%database_port%;dbname=%database_name%'
+            - { db_username: '%database_user%', db_password: '%database_password%' }
