@@ -2,7 +2,12 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+
+        {% set _title = block('title') %}
+        <title>
+            Power Word Awesome{% if _title is not empty %} - {% endif%}{% block title %}{% endblock %}
+        </title>
+
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
         <!-- Stylesheets -->
@@ -24,13 +29,14 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Power Word Awesome</a>
+                    <a class="navbar-brand" href="{{ path('homepage') }}">Power Word Awesome</a>
                 </div>
+
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         {% set controller_class = app.request.attributes.get("_controller") %}
                         <li {% if app.request.attributes.get("_controller")  == 'schedule' %}class="active"{% endif %}>
-                            <a href="#">Schedule</a>
+                            <a href="{{ path('app_schedule_index') }}">Schedule</a>
                         </li>
                         <li {% if controller_class starts with 'AppBundle\\Controller\\CharacterController' %}class="active"{% endif %}>
                             <a href="{{ path('app_character_index') }}">Characters</a>
@@ -58,6 +64,7 @@
                     {% endif %}
                     </ul>
                 </div>
+
             </div>
         </nav>
 
