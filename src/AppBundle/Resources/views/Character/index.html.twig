@@ -5,63 +5,67 @@
 {% block body %}
 
     {% if app.user %}
-    <div>
-        <div class="pull-left">
-            <div id="toolbar">
-                <h3 style="display: inline;">My Characters</h3>
+    <div class="my-characters-list">
+        <div>
+            <div class="pull-left">
+                <div id="toolbar">
+                    <h3 style="display: inline;">My Characters</h3>
+                </div>
+            </div>
+            <div class="columns columns-right btn-group pull-right">
+                <a href="{{ path('app_character_new') }}" class="btn btn-default" role="button">
+                    <i class="glyphicon-plus"></i> Add Character
+                </a>
             </div>
         </div>
-        <div class="columns columns-right btn-group pull-right">
-            <a href="{{ path('app_character_new') }}" class="btn btn-default" role="button">
-                <i class="glyphicon-plus"></i> Add Character
-            </a>
-        </div>
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Server</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for character in mine %}
+                <tr>
+                    <td>{{ character.characterName }}</td>
+                    <td>{{ character.server }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="2">You have no characters!</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
-    <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Server</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for character in mine %}
-            <tr>
-                <td>{{ character.characterName }}</td>
-                <td>{{ character.server }}</td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="2">You have no characters!</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
     {% endif %}
 
 
-    <h3>All Characters</h3>
-    <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Server</th>
-            <th>Discord User</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for character in others %}
+    <div class="all-characters-list">
+        <h3>All Characters</h3>
+        <table class="table table-striped table-hover">
+            <thead>
             <tr>
-                <td>{{ character.characterName }}</td>
-                <td>{{ character.server }}</td>
-                <td>{{ character.user.fullDiscordUsername }}</td>
+                <th>Name</th>
+                <th>Server</th>
+                <th>Discord User</th>
             </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">There are no characters!</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for character in others %}
+                <tr>
+                    <td>{{ character.characterName }}</td>
+                    <td>{{ character.server }}</td>
+                    <td>{{ character.user.fullDiscordUsername }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">There are no characters!</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
 {% endblock %}

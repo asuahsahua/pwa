@@ -64,6 +64,13 @@ class User implements UserInterface
      */
     protected $avatar_id;
 
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="timezone", type="string", length=255)
+	 */
+	protected $timezone = 'America/New_York';
+
     /**
      * @var WowCharacter[]
      *
@@ -172,8 +179,13 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-        // TODO: Implement getRoles() method.
-        return [];
+    	$roles = [];
+
+    	if ($this->getUsername()) {
+    		$roles []= 'ROLE_USER';
+	    }
+
+        return $roles;
     }
 
     /**
@@ -312,5 +324,29 @@ class User implements UserInterface
     public function getAvatarUrl()
     {
         return "https://cdn.discordapp.com/avatars/{$this->getUsername()}/{$this->getAvatarId()}.png?size=256";
+    }
+
+    /**
+     * Set timezone
+     *
+     * @param string $timezone
+     *
+     * @return User
+     */
+    public function setTimezone($timezone)
+    {
+        $this->timezone = $timezone;
+
+        return $this;
+    }
+
+    /**
+     * Get timezone
+     *
+     * @return string
+     */
+    public function getTimezone()
+    {
+        return $this->timezone;
     }
 }

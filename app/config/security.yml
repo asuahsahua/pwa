@@ -21,9 +21,10 @@ security:
             oauth:
                 resource_owners:
                     discord: "/login/check-discord"
-                login_path: /login
+                login_path: hwi_oauth_connect_registration
                 use_forward: true
-                failure_path: /login
+                failure_path: /
+                default_target_path: login
                 oauth_user_provider:
                     service: user.provider
             logout:
@@ -33,3 +34,4 @@ security:
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login/check-discord, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/user, roles: ROLE_USER }
