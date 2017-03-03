@@ -37,10 +37,10 @@ class EventController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $character = $form->getData();
+            $event = $form->getData();
 
             $em = $this->get('doctrine.orm.default_entity_manager');
-            $em->persist($character);
+            $em->persist($event);
             $em->flush();
 
             return $this->redirectToRoute('app_event_index');

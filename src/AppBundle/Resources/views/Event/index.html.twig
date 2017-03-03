@@ -21,16 +21,16 @@
             <thead>
             <tr>
                 <th>Name</th>
-                <th>Start Time</th>
                 <th>Organizer</th>
+                <th>Start Time</th>
             </tr>
             </thead>
             <tbody>
             {% for event in events %}
                 <tr>
                     <td>{{ event.name }}</td>
-                    <td>{{ event.startTime }}</td>
                     <td>{{ event.organizer.fullDiscordUsername }}</td>
+                    <td>{{ event.startTime|date('D M d h:iA T') }}</td>
                 </tr>
             {% else %}
                 <tr>
