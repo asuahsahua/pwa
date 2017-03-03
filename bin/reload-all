@@ -1,0 +1,7 @@
+#!/usr/bin/env php
+<?php
+
+$dir = __DIR__;
+`{$dir}/console cache:clear`;
+`{$dir}/console doctrine:generate:entities AppBundle`;
+`{$dir}/console doctrine:schema:update --force`;

@@ -188,4 +188,3 @@ class Event
         return $this->slots;
     }
 }
-

@@ -24,6 +24,14 @@
 
         <div class="container">
             <div class="content">
+                {% for type, flash_messages in app.session.flashBag.all %}
+                    {% for flash_message in flash_messages %}
+                        <div class="alert alert-{{ type }}">
+                            {{ flash_message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+
                 {% block body %}{% endblock %}
             </div>
             {% block javascripts %}{% endblock %}
