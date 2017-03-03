@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 class EventController extends Controller
 {
     /**
-     * @Route("/event/new")
+     * @Route("/event/new", name="event_new")
      */
     public function newAction(Request $request)
     {
@@ -25,23 +25,11 @@ class EventController extends Controller
 	    $event->setSlots(20);
 	    $event->setDurationMinutes(3 * 60);
 
-        /** @var Form $form */
-        $form = $this->createFormBuilder($event)
-	        ->add('name', TextType::class)
-	        ->add('slots', IntegerType::class)
-	        ->add('duration_minutes', IntegerType::class, ['label' => 'Duration (in minutes)'])
-            ->add('start_time', DateTimeType::class)
-	        ->add('save', SubmitType::class, ['label' => 'Save Event'])
-            ->getForm();
-
+        $form = $this->getForm($event, true);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $event = $form->getData();
-
-            $em = $this->get('doctrine.orm.default_entity_manager');
-            $em->persist($event);
-            $em->flush();
+            $this->saveFormData($form, true);
 
             return $this->redirectToRoute('app_event_index');
         }
@@ -49,6 +37,63 @@ class EventController extends Controller
         return $this->render('AppBundle:Event:new.html.twig', array(
             'form' => $form->createView(),
         ));
+    }
+
+    /**
+     * @Route("/event/edit", name="event_edit")
+     */
+    public function editAction(Request $request)
+    {
+        $event = $this
+            ->get('doctrine.orm.default_entity_manager')
+            ->getRepository('AppBundle:Event')
+            ->findOneBy(['id' => $request->get('id')]);
+
+        $form = $this->getForm($event, false);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->saveFormData($form, false);
+
+            return $this->redirectToRoute('app_event_index');
+        }
+
+        return $this->render('AppBundle:Event:new.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * @param Event $event
+     * @param bool $isNew
+     * @return Form
+     */
+    protected function getForm($event, $isNew)
+    {
+        $operation = $isNew ? 'Create' : 'Update';
+        return $this->createFormBuilder($event)
+            ->add('name', TextType::class)
+            ->add('slots', IntegerType::class)
+            ->add('duration_minutes', IntegerType::class, ['label' => 'Duration (in minutes)'])
+            ->add('start_time', DateTimeType::class)
+            ->add('save', SubmitType::class, ['label' => "$operation Event"])
+            ->getForm();
+    }
+
+    /**
+     * @param Form $form
+     * @param bool $isNew
+     */
+    protected function saveFormData($form, $isNew)
+    {
+        $event = $form->getData();
+
+        $em = $this->get('doctrine.orm.default_entity_manager');
+        $em->persist($event);
+        $em->flush();
+
+        $operation = $isNew ? 'created' : 'updated';
+        $this->addFlash('success', "Event has been $operation!");
     }
 
     /**
@@ -70,7 +115,7 @@ class EventController extends Controller
     }
 
     /**
-     * @Route("/event/delete")
+     * @Route("/event/delete", name="event_delete")
      */
     public function deleteAction()
     {

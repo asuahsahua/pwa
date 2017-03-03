@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="columns columns-right btn-group pull-right">
-                <a href="{{ path('app_event_new') }}" class="btn btn-default" role="button">
+                <a href="{{ path('event_new') }}" class="btn btn-default" role="button">
                     <i class="glyphicon-plus"></i> Add Event
                 </a>
             </div>
@@ -23,6 +23,9 @@
                 <th>Name</th>
                 <th>Organizer</th>
                 <th>Start Time</th>
+                {% if app.user %}
+                <th class="text-right">Actions</th>
+                {% endif %}
             </tr>
             </thead>
             <tbody>
@@ -31,6 +34,19 @@
                     <td>{{ event.name }}</td>
                     <td>{{ event.organizer.fullDiscordUsername }}</td>
                     <td>{{ event.startTime|date('D M d h:iA T') }}</td>
+                    {% if app.user %}
+                    <td class="text-right">
+                        <a href="{{ path('event_edit', {'id': event.id }) }}">
+                            <b class="glyphicon glyphicon-edit"></b>
+                            Edit
+                        </a>
+                        <a href="{{ path('event_delete', {'id': event.id }) }}"
+                           onclick="return confirm('Are you sure you want to delete {{ event.name|e('js') }}?')">
+                            <b class="glyphicon glyphicon-trash"></b>
+                            Delete
+                        </a>
+                    </td>
+                    {% endif %}
                 </tr>
             {% else %}
                 <tr>
