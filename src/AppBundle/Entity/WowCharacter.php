@@ -30,14 +30,14 @@ class WowCharacter
     /**
      * @var string
      *
-     * @ORM\Column(name="character_name", type="string", length=255)
+     * @ORM\Column(name="character_name", type="string", length=100)
      */
     private $characterName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="server", type="string", length=255)
+     * @ORM\Column(name="server", type="string", length=100)
      */
     private $server;
 
