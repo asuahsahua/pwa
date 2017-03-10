@@ -37,14 +37,8 @@
                     <td>{{ character.server }}</td>
                     <td>
                         <!-- TODO: A partial that renders roles. And figure out how to make this not terrible -->
-                        {% for role in character.roles %}
-                            {% if role == 1 %}
-                                Tank
-                            {% elseif role == 2 %}
-                                Healer
-                            {% elseif role == 4 %}
-                                DPS
-                            {% endif %}
+                        {% for role in character.roles.rolesDescriptive %}
+                            {{ role }}
                         {% endfor %}
                     </td>
                     <td class="text-right">

@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use AppBundle\BattleNet\CharacterParser;
+use AppBundle\Enums\Roles;
+use AppBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -16,10 +18,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class WowCharacter
 {
-    const ROLE_TANK = 1;
-    const ROLE_HEAL = 2;
-    const ROLE_DPS = 4;
-
     /**
      * @var int
      *
@@ -147,11 +145,11 @@ class WowCharacter
     /**
      * Set user
      *
-     * @param \AppBundle\Entity\User $user
+     * @param User $user
      *
      * @return WowCharacter
      */
-    public function setUser(\AppBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 
@@ -161,7 +159,7 @@ class WowCharacter
     /**
      * Get user
      *
-     * @return \AppBundle\Entity\User
+     * @return User
      */
     public function getUser()
     {
@@ -198,102 +196,19 @@ class WowCharacter
     }
 
     /**
-     * @return array
+     * @return Roles
      */
-    public function getRoles() : array
+    public function getRoles() : Roles
     {
-        $roles = [];
-        foreach (self::getRoleTypes() as $roleType) {
-            if ($this->getRolesMask() & $roleType) {
-                $roles []= $roleType;
-            }
-        }
-        return $roles;
+    	return new Roles($this->getRolesMask());
     }
 
     /**
-     * @param array $roles
+     * @param Roles $roles
      */
-    public function setRoles(array $roles)
+    public function setRoles(Roles $roles)
     {
-        $mask = 0;
-        foreach ($roles as $role) {
-            $mask |= $role;
-        }
-        $this->setRolesMask($mask);
-    }
-
-    public static function getRoleTypes()
-    {
-        return [
-            self::ROLE_TANK,
-            self::ROLE_HEAL,
-            self::ROLE_DPS,
-        ];
-    }
-
-    /**
-     * @return bool
-     */
-    public function getIsTank()
-    {
-        return !!($this->getRolesMask() & self::ROLE_TANK);
-    }
-
-    public function setIsTank($bool)
-    {
-        if ($bool) {
-            $this->setRolesMask($this->getRolesMask() | self::ROLE_TANK);
-        } else {
-            $this->setRolesMask($this->getRolesMask() ^ self::ROLE_TANK);
-        }
-    }
-
-    /**
-     * @return bool
-     */
-    public function isDps()
-    {
-        return !!($this->getRolesMask() & self::ROLE_DPS);
-    }
-
-    public function setIsDps($bool)
-    {
-        if ($bool) {
-            $this->setRolesMask($this->getRolesMask() | self::ROLE_DPS);
-        } else {
-            $this->setRolesMask($this->getRolesMask() ^ self::ROLE_DPS);
-        }
-    }
-
-    /**
-     * @return bool
-     */
-    public function isHeal()
-    {
-        return !!($this->getRolesMask() & self::ROLE_HEAL);
-    }
-
-    public function setIsHeal($bool)
-    {
-        if ($bool) {
-            $this->setRolesMask($this->getRolesMask() | self::ROLE_HEAL);
-        } else {
-            $this->setRolesMask($this->getRolesMask() ^ self::ROLE_HEAL);
-        }
-    }
-
-    public function getRolesDescriptive()
-    {
-    	static $descriptions = [
-    		self::ROLE_TANK => "Tank",
-		    self::ROLE_DPS => "DPS",
-		    self::ROLE_HEAL => "Heal",
-	    ];
-
-    	return \array_map(function($role) use ($descriptions) {
-    		return $descriptions[$role];
-	    }, $this->getRoles());
+    	$this->setRolesMask($roles->getMask());
     }
 
 	/**

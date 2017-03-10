@@ -15,7 +15,7 @@
             <div>{{ character.characterName }} - {{ character.server }}</div>
             <div>Level {{ character.level }} {{ character.faction }} {{ character.class }}</div>
             <div>
-                {% for role in character.rolesDescriptive %}
+                {% for role in character.roles.rolesDescriptive %}
                     Roles: {{ role }}
                 {% endfor %}
             </div>
