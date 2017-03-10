@@ -28,3 +28,14 @@ services:
         arguments:
             - 'mysql:host=%database_host%;port=%database_port%;dbname=%database_name%'
             - { db_username: '%database_user%', db_password: '%database_password%' }
+
+    bnet_api_client:
+        class: BlizzardApi\BlizzardClient
+        arguments:
+            - "%env(BNET_API_KEY)%"
+            - "%env(BNET_API_SECRET)%"
+
+    wow_api_client:
+        class: BlizzardApi\Service\WorldOfWarcraft
+        arguments:
+            - "@bnet_api_client"

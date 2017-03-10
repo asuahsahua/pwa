@@ -31,7 +31,9 @@
             <tbody>
             {% for character in mine %}
                 <tr>
-                    <td>{{ character.characterName }}</td>
+                    <td>
+                        <a href="{{ path('character_read', { id: character.id }) }}">{{ character.characterName }}</a>
+                    </td>
                     <td>{{ character.server }}</td>
                     <td>
                         <!-- TODO: A partial that renders roles. And figure out how to make this not terrible -->

@@ -159,7 +159,7 @@ class EventController extends Controller
      */
     public function deleteAction()
     {
-        return $this->render('AppBundle:Character:delete.html.twig', array(
+        return $this->render('AppBundle:Event:delete.html.twig', array(
             // ...
         ));
     }
@@ -169,7 +169,7 @@ class EventController extends Controller
 	 */
     public function readAction()
     {
-	    return $this->render('AppBundle:Character:read.html.twig', array(
+	    return $this->render('AppBundle:Event:read.html.twig', array(
 		    // ...
 	    ));
     }

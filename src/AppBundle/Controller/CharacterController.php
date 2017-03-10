@@ -147,6 +147,37 @@ class CharacterController extends Controller
         return $this->redirectReferrer($request);
     }
 
+	/**
+	 * @param Request $request
+	 * @Route("/character/read", name="character_read")
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
+    public function readAction(Request $request)
+    {
+    	$id = $request->get('id');
+    	/** @var WowCharacter $character */
+    	$character = $this->getRepo()->findOneBy(['id' => $id]);
+    	$characterInfo = $this->get('wow_api_client')
+		    ->getCharacter($character->getServer(), $character->getCharacterName());
+    	if ($characterInfo->getStatusCode() == 200) {
+    		$characterInfo = json_decode($characterInfo->getBody());
+	    } else {
+    		$characterInfo = [];
+	    }
+
+    	if (!$character) {
+    		$this->addFlash('error', 'Could not find that character.');
+    		return $this->redirectReferrer($request);
+	    }
+
+	    var_dump($characterInfo);
+
+	    return $this->render('AppBundle:Character:read.html.twig', [
+	    	'character' => $character,
+		    'info' => $characterInfo,
+	    ]);
+    }
+
     /**
      * @return \Doctrine\ORM\EntityRepository
      */

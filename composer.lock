@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8f6577683d2db1b2c8c0c9a6ffad8811",
-    "content-hash": "6b47c7261fe9de5106072357bea5594a",
+    "hash": "ee338a97f9da7cda6273a32a43dc1189",
+    "content-hash": "b8184dc5c3092514981aa3499714dfe0",
     "packages": [
         {
             "name": "TrafficCophp/ByteBuffer",
@@ -1674,6 +1674,57 @@
                 "http client"
             ],
             "time": "2015-06-25 17:26:56"
+        },
+        {
+            "name": "logansua/blizzard-api-client",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/LogansUA/blizzard-api-php-client.git",
+                "reference": "b9dd1c4f71de9dccfe770bbbd499338877c33b04"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/LogansUA/blizzard-api-php-client/zipball/b9dd1c4f71de9dccfe770bbbd499338877c33b04",
+                "reference": "b9dd1c4f71de9dccfe770bbbd499338877c33b04",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.2",
+                "php": ">=5.6.0",
+                "symfony/options-resolver": "^3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BlizzardApi\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Oleg Kachinskiy",
+                    "email": "logansoleg@gmail.com",
+                    "role": "Creator"
+                },
+                {
+                    "name": "Community",
+                    "homepage": "https://github.com/LogansUA/blizzard-api-php-client/graphs/contributors",
+                    "role": "Contributors"
+                }
+            ],
+            "description": "API client for blizzard API written in PHP",
+            "homepage": "https://github.com/LogansUA/blizzard-api-php-client",
+            "keywords": [
+                "api",
+                "blizzard",
+                "client",
+                "world of warcraft"
+            ],
+            "time": "2016-12-29 13:22:34"
         },
         {
             "name": "monolog/monolog",
