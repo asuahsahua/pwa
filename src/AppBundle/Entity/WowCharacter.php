@@ -2,7 +2,9 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\BattleNet\CharacterParser;
 use Doctrine\ORM\Mapping as ORM;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -40,6 +42,34 @@ class WowCharacter
      * @ORM\Column(name="server", type="string", length=100)
      */
     private $server;
+
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="faction", type="string", length=100)
+	 */
+	private $faction;
+
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="class", type="string", length=100)
+	 */
+	private $class;
+
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="level", type="string", length=100)
+	 */
+	private $level;
+
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="thumbnail", type="string", length=255)
+	 */
+	private $thumbnail;
 
     /**
      * @var User
@@ -251,5 +281,128 @@ class WowCharacter
         } else {
             $this->setRolesMask($this->getRolesMask() ^ self::ROLE_HEAL);
         }
+    }
+
+    public function getRolesDescriptive()
+    {
+    	static $descriptions = [
+    		self::ROLE_TANK => "Tank",
+		    self::ROLE_DPS => "DPS",
+		    self::ROLE_HEAL => "Heal",
+	    ];
+
+    	return \array_map(function($role) use ($descriptions) {
+    		return $descriptions[$role];
+	    }, $this->getRoles());
+    }
+
+	/**
+	 * @param $response
+	 */
+    public function setFieldsFromBattlnetResponse(ResponseInterface $response)
+    {
+    	$parser = new CharacterParser($response);
+    	if ($parser->valid()) {
+    		$this->setFaction($parser->getFaction());
+    		$this->setLevel($parser->getLevel());
+    		$this->setClass($parser->getClass());
+    		$this->setThumbnail($parser->getThumbnail());
+	    }
+    }
+
+    /**
+     * Set faction
+     *
+     * @param string $faction
+     *
+     * @return WowCharacter
+     */
+    public function setFaction($faction)
+    {
+        $this->faction = $faction;
+
+        return $this;
+    }
+
+    /**
+     * Get faction
+     *
+     * @return string
+     */
+    public function getFaction()
+    {
+        return $this->faction;
+    }
+
+    /**
+     * Set class
+     *
+     * @param string $class
+     *
+     * @return WowCharacter
+     */
+    public function setClass($class)
+    {
+        $this->class = $class;
+
+        return $this;
+    }
+
+    /**
+     * Get class
+     *
+     * @return string
+     */
+    public function getClass()
+    {
+        return $this->class;
+    }
+
+    /**
+     * Set level
+     *
+     * @param string $level
+     *
+     * @return WowCharacter
+     */
+    public function setLevel($level)
+    {
+        $this->level = $level;
+
+        return $this;
+    }
+
+    /**
+     * Get level
+     *
+     * @return string
+     */
+    public function getLevel()
+    {
+        return $this->level;
+    }
+
+    /**
+     * Set thumbnail
+     *
+     * @param string $thumbnail
+     *
+     * @return WowCharacter
+     */
+    public function setThumbnail($thumbnail)
+    {
+        $this->thumbnail = $thumbnail;
+
+        return $this;
+    }
+
+    /**
+     * Get thumbnail
+     *
+     * @return string
+     */
+    public function getThumbnail()
+    {
+        return $this->thumbnail;
     }
 }

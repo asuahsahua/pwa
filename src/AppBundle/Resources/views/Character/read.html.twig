@@ -1,10 +1,28 @@
 {% extends '::base.html.twig' %}
 
-{% block body %}
-
-{% endblock %}
-
 {% block title %}
-
+    {{ character.characterName }}
 {% endblock %}
 
+{% block body %}
+    <div class="alert alert-danger">
+        Yeah I know this is ugly. Deal with it until I figure out something.
+    </div>
+
+    <div class="character-info-header">
+        <div>
+            <img class="pull-left" src="{{ character.thumbnail }}"/>
+            <div>{{ character.characterName }} - {{ character.server }}</div>
+            <div>Level {{ character.level }} {{ character.faction }} {{ character.class }}</div>
+            <div>
+                {% for role in character.rolesDescriptive %}
+                    Roles: {{ role }}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div>
+        TODO: Events signed up for
+    </div>
+{% endblock %}

@@ -324,7 +324,7 @@ class User implements UserInterface
 
     public function getAvatarUrl()
     {
-        return "https://cdn.discordapp.com/avatars/{$this->getUsername()}/{$this->getAvatarId()}.png?size=256";
+        return "https://cdn.discordapp.com/avatars/{$this->getUsername()}/{$this->getAvatarId()}.png?size=64";
     }
 
     /**

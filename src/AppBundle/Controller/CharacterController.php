@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\BattleNet\CharacterParser;
 use AppBundle\Entity\WowCharacter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -89,7 +90,11 @@ class CharacterController extends Controller
      */
     protected function saveFormData($form, $isNew)
     {
+    	/** @var WowCharacter $character */
         $character = $form->getData();
+
+	    $characterInfo = $this->get('wow_api_client')->getCharacter($character->getServer(), $character->getCharacterName());
+	    $character->setFieldsFromBattlnetResponse($characterInfo);
 
         $em = $this->get('doctrine.orm.default_entity_manager');
         $em->persist($character);
@@ -157,24 +162,14 @@ class CharacterController extends Controller
     	$id = $request->get('id');
     	/** @var WowCharacter $character */
     	$character = $this->getRepo()->findOneBy(['id' => $id]);
-    	$characterInfo = $this->get('wow_api_client')
-		    ->getCharacter($character->getServer(), $character->getCharacterName());
-    	if ($characterInfo->getStatusCode() == 200) {
-    		$characterInfo = json_decode($characterInfo->getBody());
-	    } else {
-    		$characterInfo = [];
-	    }
 
     	if (!$character) {
     		$this->addFlash('error', 'Could not find that character.');
     		return $this->redirectReferrer($request);
 	    }
 
-	    var_dump($characterInfo);
-
 	    return $this->render('AppBundle:Character:read.html.twig', [
 	    	'character' => $character,
-		    'info' => $characterInfo,
 	    ]);
     }
 
