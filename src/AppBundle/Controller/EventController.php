@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Event;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\DateIntervalType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -34,7 +35,7 @@ class EventController extends Controller
             return $this->redirectToRoute('app_event_index');
         }
 
-        return $this->render('AppBundle:Event:new.html.twig', array(
+        return $this->render('AppBundle:Event:update.html.twig', array(
             'form' => $form->createView(),
         ));
     }
@@ -58,7 +59,7 @@ class EventController extends Controller
             return $this->redirectToRoute('app_event_index');
         }
 
-        return $this->render('AppBundle:Event:new.html.twig', array(
+        return $this->render('AppBundle:Event:update.html.twig', array(
             'form' => $form->createView(),
         ));
     }
@@ -71,11 +72,43 @@ class EventController extends Controller
     protected function getForm($event, $isNew)
     {
         $operation = $isNew ? 'Create' : 'Update';
+        $timezone = $this->getUser()->getTimezone();
+        $tzCode = (new \DateTime())->setTimezone(new \DateTimeZone($timezone))->format('T');
+
         return $this->createFormBuilder($event)
-            ->add('name', TextType::class)
-            ->add('slots', IntegerType::class)
-            ->add('duration_minutes', IntegerType::class, ['label' => 'Duration (in minutes)'])
-            ->add('start_time', DateTimeType::class)
+            ->add('name', TextType::class, [
+            	'attr' => [
+            		'help' => "A useful, descriptive name",
+	            ],
+            ])
+	        ->add('location', TextType::class, [
+	        	'attr' => [
+	        		'help' => "Where the sign-ups will be going",
+		        ],
+	        ])
+            ->add('slots', IntegerType::class, [
+            	'attr' => [
+            		'help' => "How many you can take - will not prevent signups above this cap",
+	            ],
+            ])
+	        ->add('start_time', DateTimeType::class, [
+		        'date_widget' => 'single_text',
+		        'time_widget' => 'single_text',
+		        'view_timezone' => $timezone,
+		        'attr' => [
+			        'help' => "In your configured timezone ({$tzCode})",
+		        ],
+	        ])
+            ->add('duration_interval', DateIntervalType::class, [
+            	'label' => 'Duration',
+	            'with_years' => false,
+	            'with_months' => false,
+	            'with_days' => false,
+	            'with_hours' => true,
+	            'with_minutes' => true,
+	            'with_seconds' => false,
+	            'widget' => 'integer'
+            ])
             ->add('save', SubmitType::class, ['label' => "$operation Event"])
             ->getForm();
     }
@@ -104,13 +137,20 @@ class EventController extends Controller
         $repo = $this->get('doctrine.orm.default_entity_manager')->getRepository('AppBundle:Event');
 
         /** @var Event[] $events */
-        $events = $repo->createQueryBuilder('e')
+        $future = $repo->createQueryBuilder('e')
             ->where('e.startTime > :startTime')
             ->setParameter('startTime', new \DateTime('today'))
             ->getQuery()->getResult();
 
+	    $past = $repo->createQueryBuilder('e')
+		    ->where('e.startTime < :startTime')
+		    ->setParameter('startTime', new \DateTime('today'))
+		    ->setMaxResults(10)
+		    ->getQuery()->getResult();
+
         return $this->render('AppBundle:Event:index.html.twig', array(
-            'events' => $events,
+            'future_events' => $future,
+	        'past_events' => $past,
         ));
     }
 
@@ -124,4 +164,13 @@ class EventController extends Controller
         ));
     }
 
+	/**
+	 * @Route("/event/read", name="event_read")
+	 */
+    public function readAction()
+    {
+	    return $this->render('AppBundle:Character:read.html.twig', array(
+		    // ...
+	    ));
+    }
 }

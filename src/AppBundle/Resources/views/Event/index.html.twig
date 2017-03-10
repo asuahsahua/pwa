@@ -4,18 +4,20 @@
 
 {% block body %}
 
-    <div class="all-characters-list">
+    <div class="future-events-list">
         <div>
             <div class="pull-left">
                 <div id="toolbar">
-                    <h3 style="display: inline;">Events</h3>
+                    <h3 style="display: inline;">Future Events</h3>
                 </div>
             </div>
+            {% if app.user %}
             <div class="columns columns-right btn-group pull-right">
                 <a href="{{ path('event_new') }}" class="btn btn-default" role="button">
                     <i class="glyphicon-plus"></i> Add Event
                 </a>
             </div>
+            {% endif %}
         </div>
         <table class="table table-striped table-hover">
             <thead>
@@ -29,9 +31,9 @@
             </tr>
             </thead>
             <tbody>
-            {% for event in events %}
+            {% for event in future_events %}
                 <tr>
-                    <td>{{ event.name }}</td>
+                    <td><a href="{{ path('event_read', { id: event.id }) }}">{{ event.name }}</a></td>
                     <td>{{ event.organizer.fullDiscordUsername }}</td>
                     <td>{{ event.startTime|date('D M d h:iA T') }}</td>
                     {% if app.user %}
@@ -51,6 +53,38 @@
             {% else %}
                 <tr>
                     <td colspan="3">There are no events scheduled!</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="past-events-list">
+        <div>
+            <div class="pull-left">
+                <div id="toolbar">
+                    <h3 style="display: inline;">Past Events</h3>
+                </div>
+            </div>
+        </div>
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Organizer</th>
+                <th>Start Time</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for event in past_events %}
+                <tr>
+                    <td><a href="{{ path('event_read', { id: event.id }) }}">{{ event.name }}</a></td>
+                    <td>{{ event.organizer.fullDiscordUsername }}</td>
+                    <td>{{ event.startTime|date('D M d h:iA T') }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">There are no events!</td>
                 </tr>
             {% endfor %}
             </tbody>

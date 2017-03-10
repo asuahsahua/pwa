@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Event
@@ -28,10 +29,18 @@ class Event
      */
     private $name;
 
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="location", type="string", length=255)
+	 */
+	private $location;
+
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="start_time", type="datetimetz")
+     * @Assert\GreaterThanOrEqual("now", message="Start time must be in the future")
      */
     private $startTime;
 
@@ -186,5 +195,42 @@ class Event
     public function getSlots()
     {
         return $this->slots;
+    }
+
+    /**
+     * Set location
+     *
+     * @param string $location
+     *
+     * @return Event
+     */
+    public function setLocation($location)
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    /**
+     * Get location
+     *
+     * @return string
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    public function getDurationInterval()
+    {
+    	$hours = (int)($this->durationMinutes / 60);
+    	$minutes = $this->durationMinutes % 60;
+
+    	return new \DateInterval("PT{$hours}H{$minutes}M");
+    }
+
+    public function setDurationInterval(\DateInterval $interval)
+    {
+    	$this->durationMinutes = $interval->i;
     }
 }

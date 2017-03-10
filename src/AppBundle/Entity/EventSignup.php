@@ -32,4 +32,3 @@ class EventSignup
         return $this->id;
     }
 }
-

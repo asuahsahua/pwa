@@ -24,7 +24,18 @@ class UserController extends Controller
 
 		/** @var Form $form */
 		$form = $this->createFormBuilder($user)
-			->add('timezone', TimezoneType::class)
+			->add('timezone', TimezoneType::class, [
+				'preferred_choices' => [
+					'America/New_York',
+					'America/Chicago',
+					'America/Denver',
+					'America/Phoenix',
+					'America/Los_Angeles',
+					'America/Anchorage',
+					'America/Adak',
+					'Pacific/Honolulu',
+				],
+			])
 			->add('save', SubmitType::class, ['label' => 'Save Settings'])
 			->getForm();
 
@@ -40,7 +51,7 @@ class UserController extends Controller
 			return $this->redirectToRoute('homepage');
 		}
 
-		return $this->render('AppBundle:Character:new.html.twig', array(
+		return $this->render('AppBundle:User:settings.html.twig', array(
 			'form' => $form->createView(),
 		));
 	}

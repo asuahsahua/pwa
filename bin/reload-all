@@ -1,7 +1,5 @@
-#!/usr/bin/env php
-<?php
+#!/usr/bin/env bash -e
 
-$dir = __DIR__;
-`{$dir}/console cache:clear`;
-`{$dir}/console doctrine:generate:entities AppBundle`;
-`{$dir}/console doctrine:schema:update --force`;
+bin/console cache:clear
+bin/console doctrine:generate:entities AppBundle
+bin/console doctrine:schema:update --force
