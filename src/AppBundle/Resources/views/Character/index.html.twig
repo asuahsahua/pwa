@@ -46,7 +46,7 @@
                                 <b class="glyphicon glyphicon-edit"></b>
                                 Edit
                             </a>
-                            <a href="{{ path('app_character_delete', {'id': character.id }) }}"
+                            <a href="{{ path('character_delete', {'id': character.id }) }}"
                                onclick="return confirm('Are you sure you want to delete {{ character.characterName|e('js') }}?')">
                                 <b class="glyphicon glyphicon-trash"></b>
                                 Delete
@@ -55,7 +55,7 @@
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="2">You have no characters!</td>
+                        <td colspan="100%">You have no characters!</td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -83,7 +83,7 @@
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="3">There are no characters!</td>
+                    <td colspan="100%">There are no characters!</td>
                 </tr>
             {% endfor %}
             </tbody>

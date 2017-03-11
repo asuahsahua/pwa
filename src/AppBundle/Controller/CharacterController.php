@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\WowCharacter;
 use AppBundle\Form\CharacterType;
+use GuzzleHttp\Exception\ClientException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Form;
@@ -76,7 +77,7 @@ class CharacterController extends Controller
 
         try {
             $characterInfo = $this->get('wow_api_client')->getCharacter($character->getServer(), $character->getCharacterName());
-        } catch (\GuzzleHttp\Exception\ClientException $e) {
+        } catch (ClientException $e) {
             $json = json_decode($e->getResponse()->getBody(), true);
             $reason = $json && isset($json['reason']) ? $json['reason'] : "Code {$e->getCode()}";
 
@@ -120,7 +121,7 @@ class CharacterController extends Controller
     }
 
     /**
-     * @Route("/character/delete")
+     * @Route("/character/delete", name="character_delete")
      */
     public function deleteAction(Request $request)
     {
