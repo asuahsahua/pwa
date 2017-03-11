@@ -3,13 +3,9 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Event;
+use AppBundle\Form\EventType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\DateIntervalType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -26,7 +22,9 @@ class EventController extends Controller
 	    $event->setSlots(20);
 	    $event->setDurationMinutes(3 * 60);
 
-        $form = $this->getForm($event, true);
+        $form = $this->createForm(EventType::class, $event, [
+            'timezone' => $this->getUser()->getTimezone(),
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -50,7 +48,9 @@ class EventController extends Controller
             ->getRepository('AppBundle:Event')
             ->findOneBy(['id' => $request->get('id')]);
 
-        $form = $this->getForm($event, false);
+        $form = $this->createForm(EventType::class, $event, [
+            'timezone' => $this->getUser()->getTimezone(),
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -62,55 +62,6 @@ class EventController extends Controller
         return $this->render('AppBundle:Event:update.html.twig', array(
             'form' => $form->createView(),
         ));
-    }
-
-    /**
-     * @param Event $event
-     * @param bool $isNew
-     * @return Form
-     */
-    protected function getForm($event, $isNew)
-    {
-        $operation = $isNew ? 'Create' : 'Update';
-        $timezone = $this->getUser()->getTimezone();
-        $tzCode = (new \DateTime())->setTimezone(new \DateTimeZone($timezone))->format('T');
-
-        return $this->createFormBuilder($event)
-            ->add('name', TextType::class, [
-            	'attr' => [
-            		'help' => "A useful, descriptive name",
-	            ],
-            ])
-	        ->add('location', TextType::class, [
-	        	'attr' => [
-	        		'help' => "Where the sign-ups will be going",
-		        ],
-	        ])
-            ->add('slots', IntegerType::class, [
-            	'attr' => [
-            		'help' => "How many you can take - will not prevent signups above this cap",
-	            ],
-            ])
-	        ->add('start_time', DateTimeType::class, [
-		        'date_widget' => 'single_text',
-		        'time_widget' => 'single_text',
-		        'view_timezone' => $timezone,
-		        'attr' => [
-			        'help' => "In your configured timezone ({$tzCode})",
-		        ],
-	        ])
-            ->add('duration_interval', DateIntervalType::class, [
-            	'label' => 'Duration',
-	            'with_years' => false,
-	            'with_months' => false,
-	            'with_days' => false,
-	            'with_hours' => true,
-	            'with_minutes' => true,
-	            'with_seconds' => false,
-	            'widget' => 'integer'
-            ])
-            ->add('save', SubmitType::class, ['label' => "$operation Event"])
-            ->getForm();
     }
 
     /**
