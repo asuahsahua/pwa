@@ -5,62 +5,62 @@
 {% block body %}
 
     {% if app.user %}
-    <div class="my-characters-list">
-        <div>
-            <div class="pull-left">
-                <div id="toolbar">
-                    <h3 style="display: inline;">My Characters</h3>
+        <div class="my-characters-list">
+            <div>
+                <div class="pull-left">
+                    <div id="toolbar">
+                        <h3 style="display: inline;">My Characters</h3>
+                    </div>
+                </div>
+                <div class="columns columns-right btn-group pull-right">
+                    <a href="{{ path('app_character_new') }}" class="btn btn-default" role="button">
+                        <i class="glyphicon-plus"></i> Add Character
+                    </a>
                 </div>
             </div>
-            <div class="columns columns-right btn-group pull-right">
-                <a href="{{ path('app_character_new') }}" class="btn btn-default" role="button">
-                    <i class="glyphicon-plus"></i> Add Character
-                </a>
-            </div>
-        </div>
-        <table class="table table-striped table-hover">
-            <thead>
+            <table class="table table-striped table-hover">
+                <thead>
                 <tr>
                     <th>Name</th>
                     <th>Server</th>
                     <th>Roles</th>
                     <th class="text-right">Actions</th>
                 </tr>
-            </thead>
+                </thead>
 
-            <tbody>
-            {% for character in mine %}
-                <tr>
-                    <td>
-                        <a href="{{ path('character_read', { id: character.id }) }}">{{ character.characterName }}</a>
-                    </td>
-                    <td>{{ character.server }}</td>
-                    <td>
-                        <!-- TODO: A partial that renders roles. And figure out how to make this not terrible -->
-                        {% for role in character.roles.rolesDescriptive %}
-                            {{ role }}
-                        {% endfor %}
-                    </td>
-                    <td class="text-right">
-                        <a href="{{ path('app_character_edit', {'id': character.id }) }}">
-                            <b class="glyphicon glyphicon-edit"></b>
-                            Edit
-                        </a>
-                        <a href="{{ path('app_character_delete', {'id': character.id }) }}"
-                                onclick="return confirm('Are you sure you want to delete {{ character.characterName|e('js') }}?')">
-                            <b class="glyphicon glyphicon-trash"></b>
-                            Delete
-                        </a>
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="2">You have no characters!</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                <tbody>
+                {% for character in mine %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('character_read', { id: character.id }) }}">{{ character.characterName }}</a>
+                        </td>
+                        <td>{{ character.server }}</td>
+                        <td>
+                            <!-- TODO: A partial that renders roles. And figure out how to make this not terrible -->
+                            {% for role in character.roles.rolesDescriptive %}
+                                {{ role }}
+                            {% endfor %}
+                        </td>
+                        <td class="text-right">
+                            <a href="{{ path('app_character_edit', {'id': character.id }) }}">
+                                <b class="glyphicon glyphicon-edit"></b>
+                                Edit
+                            </a>
+                            <a href="{{ path('app_character_delete', {'id': character.id }) }}"
+                               onclick="return confirm('Are you sure you want to delete {{ character.characterName|e('js') }}?')">
+                                <b class="glyphicon glyphicon-trash"></b>
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="2">You have no characters!</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     {% endif %}
 
 

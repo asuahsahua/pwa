@@ -9,6 +9,6 @@ trait RefererTrait
         return $this->redirect($request->server->get('HTTP_REFERER'));
     }
 
-    abstract function redirect($url, $status=302);
+    abstract function redirect($url, $status = 302);
 }
 
