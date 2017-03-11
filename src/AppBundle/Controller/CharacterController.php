@@ -29,9 +29,7 @@ class CharacterController extends Controller
         $form = $this->createForm(CharacterType::class, $character);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->saveFormData($form, true);
-
+        if ($form->isSubmitted() && $form->isValid() && $this->saveFormData($form)) {
             return $this->redirectToRoute('app_character_index');
         }
 
@@ -57,8 +55,7 @@ class CharacterController extends Controller
         $form = $this->createForm(CharacterType::class, $character);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->saveFormData($form, false);
+        if ($form->isSubmitted() && $form->isValid() && $this->saveFormData($form)) {
             return $this->redirectToRoute('app_character_index');
         }
 
@@ -69,14 +66,23 @@ class CharacterController extends Controller
 
     /**
      * @param Form $form
-     * @param bool $isNew
+     * @return bool
      */
-    protected function saveFormData($form, $isNew)
+    protected function saveFormData($form)
     {
         /** @var WowCharacter $character */
         $character = $form->getData();
+        $isNew = !!$character->getId();
 
-        $characterInfo = $this->get('wow_api_client')->getCharacter($character->getServer(), $character->getCharacterName());
+        try {
+            $characterInfo = $this->get('wow_api_client')->getCharacter($character->getServer(), $character->getCharacterName());
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            $json = json_decode($e->getResponse()->getBody(), true);
+            $reason = $json && isset($json['reason']) ? $json['reason'] : "Code {$e->getCode()}";
+
+            $this->addFlash('warning', "Character could not be pulled from Battle.net API: {$reason}");
+            return false;
+        }
         $character->setFieldsFromBattlnetResponse($characterInfo);
 
         $em = $this->get('doctrine.orm.default_entity_manager');
@@ -85,6 +91,8 @@ class CharacterController extends Controller
 
         $operation = $isNew ? 'created' : 'updated';
         $this->addFlash('success', "Character {$character->getDisplayName()} was {$operation}!");
+
+        return true;
     }
 
     /**
