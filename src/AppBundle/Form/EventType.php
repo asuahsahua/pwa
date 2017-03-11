@@ -36,22 +36,22 @@ class EventType extends AbstractType
                 ],
             ])
             ->add('start_time', DateTimeType::class, [
-                'date_widget' => 'single_text',
-                'time_widget' => 'single_text',
+                'date_widget'   => 'single_text',
+                'time_widget'   => 'single_text',
                 'view_timezone' => $timezone,
-                'attr' => [
+                'attr'          => [
                     'help' => "In your configured timezone ({$tzCode})",
                 ],
             ])
             ->add('duration_interval', DateIntervalType::class, [
-                'label' => 'Duration',
-                'with_years' => false,
-                'with_months' => false,
-                'with_days' => false,
-                'with_hours' => true,
+                'label'        => 'Duration',
+                'with_years'   => false,
+                'with_months'  => false,
+                'with_days'    => false,
+                'with_hours'   => true,
                 'with_minutes' => true,
                 'with_seconds' => false,
-                'widget' => 'integer'
+                'widget'       => 'integer',
             ])
             ->add('save', SubmitType::class, ['label' => "$operation Event"])
             ->getForm();

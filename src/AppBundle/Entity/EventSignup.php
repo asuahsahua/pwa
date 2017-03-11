@@ -21,29 +21,29 @@ class EventSignup
      */
     private $id;
 
-	/**
-	 * @var WowCharacter
-	 *
-	 * @ORM\ManyToOne(targetEntity="WowCharacter", inversedBy="signups")
-	 * @ORM\JoinColumn(name="wow_character_id", referencedColumnName="id")
-	 */
-	private $wowCharacter;
+    /**
+     * @var WowCharacter
+     *
+     * @ORM\ManyToOne(targetEntity="WowCharacter", inversedBy="signups")
+     * @ORM\JoinColumn(name="wow_character_id", referencedColumnName="id")
+     */
+    private $wowCharacter;
 
-	/**
-	 * @var Event
-	 *
-	 * @ORM\ManyToOne(targetEntity="Event", inversedBy="signups")
-	 * @ORM\JoinColumn(name="event_id", referencedColumnName="id")
-	 */
-	private $event;
+    /**
+     * @var Event
+     *
+     * @ORM\ManyToOne(targetEntity="Event", inversedBy="signups")
+     * @ORM\JoinColumn(name="event_id", referencedColumnName="id")
+     */
+    private $event;
 
 
-	/**
-	 * @var integer
-	 *
-	 * @ORM\Column(name="roles", type="integer")
-	 */
-	private $roles;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="roles", type="integer")
+     */
+    private $roles;
 
     /**
      * Get id

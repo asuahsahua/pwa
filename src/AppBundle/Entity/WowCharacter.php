@@ -12,7 +12,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * WowCharacter
  *
- * @ORM\Table(name="wow_character", uniqueConstraints={ @ORM\UniqueConstraint(name="name_and_server", columns={"character_name", "server"}) } )
+ * @ORM\Table(name="wow_character", uniqueConstraints={ @ORM\UniqueConstraint(name="name_and_server",
+ *                                  columns={"character_name", "server"}) } )
  * @ORM\Entity(repositoryClass="AppBundle\Repository\WowCharacterRepository")
  * @UniqueEntity({"characterName", "server"})
  */
@@ -41,33 +42,33 @@ class WowCharacter
      */
     private $server;
 
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="faction", type="string", length=100)
-	 */
-	private $faction;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="faction", type="string", length=100)
+     */
+    private $faction;
 
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="class", type="string", length=100)
-	 */
-	private $class;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="class", type="string", length=100)
+     */
+    private $class;
 
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="level", type="string", length=100)
-	 */
-	private $level;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="level", type="string", length=100)
+     */
+    private $level;
 
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="thumbnail", type="string", length=255)
-	 */
-	private $thumbnail;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="thumbnail", type="string", length=255)
+     */
+    private $thumbnail;
 
     /**
      * @var User
@@ -200,7 +201,7 @@ class WowCharacter
      */
     public function getRoles() : Roles
     {
-    	return new Roles($this->getRolesMask());
+        return new Roles($this->getRolesMask());
     }
 
     /**
@@ -208,21 +209,21 @@ class WowCharacter
      */
     public function setRoles(Roles $roles)
     {
-    	$this->setRolesMask($roles->getMask());
+        $this->setRolesMask($roles->getMask());
     }
 
-	/**
-	 * @param $response
-	 */
+    /**
+     * @param $response
+     */
     public function setFieldsFromBattlnetResponse(ResponseInterface $response)
     {
-    	$parser = new CharacterParser($response);
-    	if ($parser->valid()) {
-    		$this->setFaction($parser->getFaction());
-    		$this->setLevel($parser->getLevel());
-    		$this->setClass($parser->getClass());
-    		$this->setThumbnail($parser->getThumbnail());
-	    }
+        $parser = new CharacterParser($response);
+        if ($parser->valid()) {
+            $this->setFaction($parser->getFaction());
+            $this->setLevel($parser->getLevel());
+            $this->setClass($parser->getClass());
+            $this->setThumbnail($parser->getThumbnail());
+        }
     }
 
     /**

@@ -31,7 +31,7 @@ class Berate extends Command
 
         $content = trim($content);
         if ($content) {
-            $berates = array_filter($berates, function($berate) use ($content) {
+            $berates = array_filter($berates, function ($berate) use ($content) {
                 return stripos($berate, $content) !== false;
             });
         }

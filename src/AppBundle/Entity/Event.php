@@ -29,12 +29,12 @@ class Event
      */
     private $name;
 
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="location", type="string", length=255)
-	 */
-	private $location;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="location", type="string", length=255)
+     */
+    private $location;
 
     /**
      * @var \DateTime
@@ -223,14 +223,14 @@ class Event
 
     public function getDurationInterval()
     {
-    	$hours = (int)($this->durationMinutes / 60);
-    	$minutes = $this->durationMinutes % 60;
+        $hours = (int)($this->durationMinutes / 60);
+        $minutes = $this->durationMinutes % 60;
 
-    	return new \DateInterval("PT{$hours}H{$minutes}M");
+        return new \DateInterval("PT{$hours}H{$minutes}M");
     }
 
     public function setDurationInterval(\DateInterval $interval)
     {
-    	$this->durationMinutes = $interval->i;
+        $this->durationMinutes = $interval->i;
     }
 }

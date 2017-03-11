@@ -73,11 +73,11 @@ class CharacterController extends Controller
      */
     protected function saveFormData($form, $isNew)
     {
-    	/** @var WowCharacter $character */
+        /** @var WowCharacter $character */
         $character = $form->getData();
 
-	    $characterInfo = $this->get('wow_api_client')->getCharacter($character->getServer(), $character->getCharacterName());
-	    $character->setFieldsFromBattlnetResponse($characterInfo);
+        $characterInfo = $this->get('wow_api_client')->getCharacter($character->getServer(), $character->getCharacterName());
+        $character->setFieldsFromBattlnetResponse($characterInfo);
 
         $em = $this->get('doctrine.orm.default_entity_manager');
         $em->persist($character);
@@ -135,25 +135,25 @@ class CharacterController extends Controller
         return $this->redirectReferrer($request);
     }
 
-	/**
-	 * @param Request $request
-	 * @Route("/character/read", name="character_read")
-	 * @return Response
-	 */
+    /**
+     * @param Request $request
+     * @Route("/character/read", name="character_read")
+     * @return Response
+     */
     public function readAction(Request $request)
     {
-    	$id = $request->get('id');
-    	/** @var WowCharacter $character */
-    	$character = $this->getRepo()->findOneBy(['id' => $id]);
+        $id = $request->get('id');
+        /** @var WowCharacter $character */
+        $character = $this->getRepo()->findOneBy(['id' => $id]);
 
-    	if (!$character) {
-    		$this->addFlash('error', 'Could not find that character.');
-    		return $this->redirectReferrer($request);
-	    }
+        if (!$character) {
+            $this->addFlash('error', 'Could not find that character.');
+            return $this->redirectReferrer($request);
+        }
 
-	    return $this->render('AppBundle:Character:read.html.twig', [
-	    	'character' => $character,
-	    ]);
+        return $this->render('AppBundle:Character:read.html.twig', [
+            'character' => $character,
+        ]);
     }
 
     /**

@@ -19,8 +19,8 @@ class EventController extends Controller
         $event = new Event();
         $event->setOrganizer($this->getUser());
         $event->setStartTime(new \DateTime('today'));
-	    $event->setSlots(20);
-	    $event->setDurationMinutes(3 * 60);
+        $event->setSlots(20);
+        $event->setDurationMinutes(3 * 60);
 
         $form = $this->createForm(EventType::class, $event, [
             'timezone' => $this->getUser()->getTimezone(),
@@ -91,17 +91,19 @@ class EventController extends Controller
         $future = $repo->createQueryBuilder('e')
             ->where('e.startTime > :startTime')
             ->setParameter('startTime', new \DateTime('today'))
+            ->orderBy('e.startTime', 'ASC')
             ->getQuery()->getResult();
 
-	    $past = $repo->createQueryBuilder('e')
-		    ->where('e.startTime < :startTime')
-		    ->setParameter('startTime', new \DateTime('today'))
-		    ->setMaxResults(10)
-		    ->getQuery()->getResult();
+        $past = $repo->createQueryBuilder('e')
+            ->where('e.startTime < :startTime')
+            ->setParameter('startTime', new \DateTime('today'))
+            ->orderBy('e.startTime', 'DESC')
+            ->setMaxResults(10)
+            ->getQuery()->getResult();
 
         return $this->render('AppBundle:Event:index.html.twig', array(
             'future_events' => $future,
-	        'past_events' => $past,
+            'past_events'   => $past,
         ));
     }
 
@@ -110,18 +112,16 @@ class EventController extends Controller
      */
     public function deleteAction()
     {
-        return $this->render('AppBundle:Event:delete.html.twig', array(
-            // ...
+        return $this->render('AppBundle:Event:delete.html.twig', array(// ...
         ));
     }
 
-	/**
-	 * @Route("/event/read", name="event_read")
-	 */
+    /**
+     * @Route("/event/read", name="event_read")
+     */
     public function readAction()
     {
-	    return $this->render('AppBundle:Event:read.html.twig', array(
-		    // ...
-	    ));
+        return $this->render('AppBundle:Event:read.html.twig', array(// ...
+        ));
     }
 }

@@ -10,12 +10,14 @@ class TwigListener
 {
     protected $twig;
 
-    function __construct(\Twig_Environment $twig, TokenStorage $security) {
+    function __construct(\Twig_Environment $twig, TokenStorage $security)
+    {
         $this->twig = $twig;
         $this->security = $security;
     }
 
-    public function onKernelController(FilterControllerEvent $event) {
+    public function onKernelController(FilterControllerEvent $event)
+    {
         $user = $this->getUser();
         if ($user) {
             /** @var \Twig_Extension_Core $core */

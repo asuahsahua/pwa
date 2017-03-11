@@ -65,12 +65,12 @@ class User implements UserInterface
      */
     protected $avatar_id;
 
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="timezone", type="string", length=255)
-	 */
-	protected $timezone = 'America/New_York';
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="timezone", type="string", length=255)
+     */
+    protected $timezone = 'America/New_York';
 
     /**
      * @var WowCharacter[]
@@ -180,11 +180,11 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-    	$roles = [];
+        $roles = [];
 
-    	if ($this->getUsername()) {
-    		$roles []= 'ROLE_USER';
-	    }
+        if ($this->getUsername()) {
+            $roles [] = 'ROLE_USER';
+        }
 
         return $roles;
     }
