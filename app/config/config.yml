@@ -41,6 +41,8 @@ twig:
     strict_variables: "%kernel.debug%"
     form_themes:
         - 'form/bootstrap.html.twig'
+    date:
+        timezone: America/New_York
 
 # Doctrine Configuration
 doctrine:

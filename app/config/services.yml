@@ -3,6 +3,8 @@
 parameters:
     discord.prefix: "%env(BOT_PREFIX)%"
     discord.token: "%env(DISCORD_TOKEN)%"
+    bnet.api.key: "%env(BNET_API_KEY)%"
+    bnet.api.secret: "%env(BNET_API_SECRET)%"
 
 services:
     discord.bot:
@@ -32,10 +34,19 @@ services:
     bnet_api_client:
         class: BlizzardApi\BlizzardClient
         arguments:
-            - "%env(BNET_API_KEY)%"
-            - "%env(BNET_API_SECRET)%"
+            - "%bnet.api.key%"
+            - "%bnet.api.secret%"
 
     wow_api_client:
         class: BlizzardApi\Service\WorldOfWarcraft
         arguments:
             - "@bnet_api_client"
+
+    app_twig_listener:
+        class: AppBundle\Listener\TwigListener
+        arguments:
+            - "@twig"
+            - "@security.token_storage"
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+
