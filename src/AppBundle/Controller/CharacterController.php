@@ -2,16 +2,14 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\BattleNet\CharacterParser;
 use AppBundle\Entity\WowCharacter;
+use AppBundle\Form\CharacterType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Controller\Traits\RefererTrait;
+use Symfony\Component\HttpFoundation\Response;
 
 class CharacterController extends Controller
 {
@@ -19,6 +17,8 @@ class CharacterController extends Controller
 
     /**
      * @Route("/character/new", name="app_character_new")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function newAction(Request $request)
     {
@@ -26,7 +26,7 @@ class CharacterController extends Controller
         $character->setUser($this->getUser());
         $character->setServer('Maiev');
 
-        $form = $this->getForm($character, true);
+        $form = $this->createForm(CharacterType::class, $character);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -42,7 +42,7 @@ class CharacterController extends Controller
 
     /**
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      *
      * @Route("/character/edit", name="app_character_edit")
      */
@@ -54,7 +54,7 @@ class CharacterController extends Controller
             $this->forward('not_found');
         }
 
-        $form = $this->getForm($character, false);
+        $form = $this->createForm(CharacterType::class, $character);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -65,23 +65,6 @@ class CharacterController extends Controller
         return $this->render('AppBundle:Character:update.html.twig', [
             'form' => $form->createView(),
         ]);
-    }
-
-    /**
-     * @param WowCharacter $character
-     * @param bool $isNew
-     * @return Form
-     */
-    protected function getForm($character, $isNew)
-    {
-        return $this->createFormBuilder($character)
-            ->add('characterName', TextType::class)
-            ->add('server', TextType::class)
-            ->add('is_tank', CheckboxType::class, ['required' => false, 'label' => 'Tank'])
-            ->add('is_heal', CheckboxType::class, ['required' => false, 'label' => 'Healer'])
-            ->add('is_dps', CheckboxType::class, ['required' => false, 'label' => 'DPS'])
-            ->add('save', SubmitType::class, ['label' => $isNew ? 'Create character' : 'Update character'])
-            ->getForm();
     }
 
     /**
@@ -155,7 +138,7 @@ class CharacterController extends Controller
 	/**
 	 * @param Request $request
 	 * @Route("/character/read", name="character_read")
-	 * @return \Symfony\Component\HttpFoundation\Response
+	 * @return Response
 	 */
     public function readAction(Request $request)
     {
