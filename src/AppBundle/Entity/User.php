@@ -350,4 +350,25 @@ class User implements UserInterface
     {
         return $this->timezone;
     }
+
+    /**
+     * Checks if the user is signed up for the event
+     *
+     * @param int $eventId
+     * @return bool
+     */
+    public function getIsSignedUpFor($eventId)
+    {
+        // TODO
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsAdmin()
+    {
+        // TODO
+        return true;
+    }
 }

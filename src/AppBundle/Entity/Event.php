@@ -30,13 +30,6 @@ class Event
     private $name;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="location", type="string", length=255)
-     */
-    private $location;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="start_time", type="datetimetz")
@@ -195,30 +188,6 @@ class Event
     public function getSlots()
     {
         return $this->slots;
-    }
-
-    /**
-     * Set location
-     *
-     * @param string $location
-     *
-     * @return Event
-     */
-    public function setLocation($location)
-    {
-        $this->location = $location;
-
-        return $this;
-    }
-
-    /**
-     * Get location
-     *
-     * @return string
-     */
-    public function getLocation()
-    {
-        return $this->location;
     }
 
     public function getDurationInterval()

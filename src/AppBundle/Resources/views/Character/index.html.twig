@@ -77,7 +77,11 @@
             <tbody>
             {% for character in others %}
                 <tr>
-                    <td>{{ character.characterName }}</td>
+                    <td>
+                        <a href="{{ path('character_read', { id: character.id }) }}">
+                            {{ character.characterName }}
+                        </a>
+                    </td>
                     <td>{{ character.server }}</td>
                     <td>{{ character.user.fullDiscordUsername }}</td>
                 </tr>

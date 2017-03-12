@@ -81,7 +81,7 @@ class EventController extends Controller
     }
 
     /**
-     * @Route("/event")
+     * @Route("/event", name="event_index")
      */
     public function indexAction()
     {
@@ -112,8 +112,9 @@ class EventController extends Controller
      */
     public function deleteAction()
     {
-        return $this->render('AppBundle:Event:delete.html.twig', array(// ...
-        ));
+        // TODO
+        $this->addFlash('warning', "Not yet implemented");
+        return $this->redirectToRoute('event_index');
     }
 
     /**
@@ -123,5 +124,25 @@ class EventController extends Controller
     {
         return $this->render('AppBundle:Event:read.html.twig', array(// ...
         ));
+    }
+
+    /**
+     * @Route("/event/signup", name="event_signup")
+     */
+    public function signupAction()
+    {
+        // TODO
+        $this->addFlash('warning', "Not yet implemented");
+        return $this->redirectToRoute('event_index');
+    }
+
+    /**
+     * @Route("/event/unsignup", name="event_unsignup")
+     */
+    public function unsignupAction()
+    {
+        // TODO
+        $this->addFlash('warning', "Not yet implemented");
+        return $this->redirectToRoute('event_index');
     }
 }

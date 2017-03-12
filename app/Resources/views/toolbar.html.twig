@@ -15,7 +15,7 @@
             <ul class="nav navbar-nav">
                 {% set controller_class = app.request.attributes.get("_controller") %}
                 <li {% if controller_class starts with 'AppBundle\\Controller\\EventController' %}class="active"{% endif %}>
-                    <a href="{{ path('app_event_index') }}">Events</a>
+                    <a href="{{ path('event_index') }}">Events</a>
                 </li>
                 <li {% if controller_class starts with 'AppBundle\\Controller\\CharacterController' %}class="active"{% endif %}>
                     <a href="{{ path('app_character_index') }}">Characters</a>

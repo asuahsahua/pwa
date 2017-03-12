@@ -23,9 +23,11 @@
             <thead>
             <tr>
                 <th>Name</th>
+                <th>Slots</th>
                 <th>Organizer</th>
                 <th>Start Time</th>
                 {% if app.user %}
+                    <th class="text-right">Signup</th>
                     <th class="text-right">Actions</th>
                 {% endif %}
             </tr>
@@ -34,10 +36,23 @@
             {% for event in future_events %}
                 <tr>
                     <td><a href="{{ path('event_read', { id: event.id }) }}">{{ event.name }}</a></td>
+                    <td>{{ event.slots }}</td>
                     <td>{{ event.organizer.fullDiscordUsername }}</td>
                     <td>{{ event.startTime|date('D M d h:iA T') }}</td>
                     {% if app.user %}
                         <td class="text-right">
+                            {% if app.user.isSignedUpFor(event.id) %}
+                            <a href="{{ path('event_signup', {'id': event.id}) }}">
+                                Sign Up
+                            </a>
+                            {% else %}
+                            <a href="{{ path('event_unsignup', {id: event.id}) }}">
+                                Remove signup
+                            </a>
+                            {% endif %}
+                        </td>
+                        <td class="text-right">
+                            {% if app.user.isAdmin %}
                             <a href="{{ path('event_edit', {'id': event.id }) }}">
                                 <b class="glyphicon glyphicon-edit"></b>
                                 Edit
@@ -47,6 +62,7 @@
                                 <b class="glyphicon glyphicon-trash"></b>
                                 Delete
                             </a>
+                            {% endif %}
                         </td>
                     {% endif %}
                 </tr>
